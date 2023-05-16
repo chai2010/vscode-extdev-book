@@ -8,3 +8,4 @@ build:
 	-rm -rf book/.git
 
 clean:
+	-rm -rf ./book
