@@ -1,5 +1,17 @@
 # 1.2 理解插件代码
 
+插件目录的文件布局如下：
+
+```
+├── .vscode
+│   ├── extensions.json // 插件信息
+│   └── launch.json     // 执行和调试配置
+├── README.md           // 说明文件
+├── extension.js        // 插件代码主文件
+├── package.json        // 包信息
+├── jsconfig.json       // JavaScript 类型检查
+```
+
 我们现在看下 `extension.js` 文件代码：
 
 ```js
