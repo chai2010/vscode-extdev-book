@@ -1,5 +1,7 @@
 /_book
 /book
 
+node_modules
+
 *.out*
 _zz*
