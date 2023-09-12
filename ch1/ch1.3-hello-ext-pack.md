@@ -26,6 +26,18 @@ Do you want to continue? [y/N] y
 
 打包过程中还会检查仓库、版权文件等内容是否合规，这是是一个正规的插件发布到插件市场必须要提供的信息。为了简化流程这里先忽略这些警告信息，最终生成了 `helloworld-0.0.1.vsix` 打包后到插件。
 
+`vsix` 是标准的 zip 压缩格式，其中打包的文件对应如下目录：
+
+```
+├── [Content_Types].xml
+├── extension
+│   ├── CHANGELOG.md
+│   ├── README.md
+│   ├── extension.js
+│   └── package.json
+└── extension.vsixmanifest
+```
+
 然后打开一个新的VS Code程序，在插件视图点击“Views and More Actions...”按钮，选择“Install from VSIX...”菜单：
 
 ![](../images/ch1.3-01.png)
