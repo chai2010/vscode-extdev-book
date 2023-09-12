@@ -9,5 +9,12 @@
   - [打包插件](ch1/ch1.3-hello-ext-pack.md)
   - [发布插件](ch1/ch1.4-hello-ext-pub.md)
   - [补充说明](ch1/ch1.5-ext.md)
+* [配置界面](ch2/readme.md)
+* [命令入口](ch3/readme.md)
+* [语法高亮](ch4/readme.md)
+* [辅助视图](ch5/readme.md)
+* [语言服务](ch6/readme.md)
+* [调试服务](ch7/readme.md)
+* [Web版插件](ch8/readme.md)
 * [附录](appendix/readme.md)
 
