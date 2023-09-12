@@ -57,8 +57,11 @@ function activate(context) {
 
 ```json
 {
-  ...
+  "name": "helloworld",
   "main": "./extension.js",
+  "engines": {
+    "vscode": "^1.82.0"
+  },
   "contributes": {
     "commands": [{
       "command": "helloworld.helloWorld",
@@ -68,6 +71,8 @@ function activate(context) {
   ...
 }
 ```
+
+其中`name`是插件的名字。`main`指定了主程序入口，`engines.vscode`制定了VS Code的最低版本，如果要对外发布还需要设置`publisher`表示发布者的ID，`<publisher>.<name>`会组成插件全局唯一ID。
 
 当插件命令被执行时，在闭包函数通过 `vscode.window.showInformationMessage('...')` 函数调用显示一个弹窗信息。如图所示：
 

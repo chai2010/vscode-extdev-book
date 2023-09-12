@@ -1,6 +1,7 @@
 {
-  "name": "helloworld",
-  "displayName": "helloworld",
+  "publisher": "chai2010",
+  "name": "helloworld-chai2010",
+  "displayName": "helloworld-chai2010",
   "description": "",
   "version": "0.0.1",
   "engines": {
