@@ -24,4 +24,9 @@ VS Code 有个插件市场包含海量的插件和用户，因此插件开发完
 
 然后就可以通过VS Code正常流程安装插件了（安装前确保删除之前本地安装的插件，避免命令冲突）。
 
+<!--
+TODO: 安装的目录位置
 
+Mac/Linux：${HOME}/.vscode/extensions
+Windows系统：%USERPROFILE%\.vscode\extensions
+-->
