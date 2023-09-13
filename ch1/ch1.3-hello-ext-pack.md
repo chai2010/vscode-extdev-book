@@ -46,5 +46,21 @@ Do you want to continue? [y/N] y
 
 ![](../images/ch1.3-02.png)
 
-这样在本地可以使用开发的插件了。
+macOS和Linux 系统下安装的插件在 `${HOME}/.vscode/extensions` 目录，Windows 则是 `%USERPROFILE%\.vscode\extensions` 目录，插件的产生的子命令名为 `undefined_publisher.helloworld-0.0.1`（没有指定`publisher`，所以用了默认的`undefined_publisher`）。
 
+下面是插件安装之后的目录结构：
+
+```
+$ tree -a ${HOME}/.vscode/extensions/undefined_publisher.helloworld-0.0.1
+├── .vsixmanifest
+├── CHANGELOG.md
+├── README.md
+├── extension.js
+└── package.json
+
+0 directories, 5 files
+```
+
+可以发现安装后插件目录有一个`.vsixmanifest`包含插件的一些元信息，其他则是开发插件时的文件。
+
+这样我们通过本地打包和手工方式安装使用开发的插件了。
