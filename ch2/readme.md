@@ -1,9 +1,3 @@
 # 第2章 工作区和配置
 
-VS Code 插件和普通程序一样，可能需要获取宿主上下文信息。本章介绍如何获取当前文件、当前工程、插件配置等信息。
-
-<!--
-vscode.workspace.openTextDocument
-
-https://github.com/microsoft/vscode/blob/main/src/vscode-dts/vscode.d.ts
--->
+VS Code 插件虽然和普通程序一样，但是主要服务于日常的编辑工作。而VS Code通常在工作区中完成编辑，因此认识工作区和配置的一些基本概念是必须的。本章介绍工作区和配置的信息。
