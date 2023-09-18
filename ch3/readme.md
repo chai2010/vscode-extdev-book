@@ -1,4 +1,4 @@
-# 第3章 命令入口
+# 第3章 Task和命令
 
 <!--
 https://code.visualstudio.com/api/references/contribution-points#contributes.keybindings
