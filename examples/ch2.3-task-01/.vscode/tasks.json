@@ -4,9 +4,15 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "echo",
+            "label": "test",
             "type": "shell",
-            "command": "echo Hello"
+            "command": "echo Test",
+            "dependsOn": ["build"]
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "echo Build"
         }
     ]
 }

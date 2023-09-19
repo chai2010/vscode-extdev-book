@@ -42,6 +42,26 @@ export interface CommandOptions {
 
 <!--
 
+测试无法在命令行获得结果
+
+ --extensions-dir <dir>              Set the root path for extensions.
+
+code --list-extensions --show-versions
+
+https://code.visualstudio.com/api/working-with-extensions/testing-extension
+
+
+code \
+--extensionDevelopmentPath=<EXTENSION-ROOT-PATH> \
+--extensionTestsPath=<TEST-RUNNER-SCRIPT-PATH>
+
+
+code --disable-extensions --extensionDevelopmentPath=. --extensionTestsPath=./test/runTest.ts
+
+
+
+以第一章插件为例，构建，测试，打包三个步骤
+
 ## 2.3.2 更复杂一点的Task
 
 all/build/pack/clean

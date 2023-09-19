@@ -1,6 +1,26 @@
 # 1.1 你好, 插件
 
-本节配置开发环境，用工具创建一个最简单的插件程序。先确保本地安装了 VS Code 较新的版本，同时安装 Node.js、Git工具。然后通过以下命令安装 Yeoman 和 VS Code Extension 生成工具：
+本节配置开发环境，用工具创建一个最简单的插件程序。先确保本地安装了 VS Code 较新的版本。
+
+在开始之前可以通过命令行查看下VS Code版本号（更多命令行参数通过`code --help`查看）：
+
+```
+$ code --version
+1.82.2
+abd2f3db4bdb28f9e95536dfa84d8479f1eb312d
+arm64
+```
+
+使用`code --list-extensions`命令查看已经安装的插件列表：
+
+```
+$ code --list-extensions
+dtsvet.vscode-wasm
+golang.go
+...
+```
+
+为了开发扩展还需要安装 Node.js、Git工具，然后通过以下命令安装 Yeoman 和 VS Code Extension 生成工具：
 
 ```
 npm install -g yo generator-code
