@@ -219,7 +219,26 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 }
 ```
 
-输入字符串时还可以通过设置`password`来隐藏输入框的字符。
+执行时输入效果如下：
+
+![](../images/ch2.3-01.png)
+
+![](../images/ch2.3-02.png)
+
+输入字符串时还可以通过设置`password`来隐藏输入框的字符：
+
+```json
+        {
+            "id": "password",
+            "type": "promptString",
+            "description": "input password",
+            "password": true
+        }
+```
+
+输入密码的效果如下：
+
+![](../images/ch2.3-03.png)
 
 <!--
 
