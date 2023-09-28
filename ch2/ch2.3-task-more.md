@@ -244,13 +244,34 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 
 ![](../images/ch2.3-03.png)
 
+### 2.3.6 Task中启动Command
+
+在第1章中我们构建了一个`helloworld.helloWorld`命令，也可以从Task中启动这个命令：
+
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "hello-command",
+            "type": "shell",
+            "command": "${command:helloworld.helloWorld}"
+        },
+    ]
+}
+```
+
+`${command:helloworld.helloWorld}` 表示安装的Hello插件注册的命令，后面是命令的ID。
+
 <!--
 
-### 2.3.6 绑定快捷键和菜单
 
 https://code.visualstudio.com/docs/editor/tasks
 
 https://code.visualstudio.com/docs/editor/tasks-appendix
+
+https://github.com/Microsoft/vscode/issues/11396
 
 https://github.com/microsoft/vscode/issues/108051
 
