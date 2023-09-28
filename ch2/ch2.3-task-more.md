@@ -201,7 +201,11 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
             "id": "pick-value",
             "type": "pickString",
             "description": "pick value",
-            "options": ["apple", "cat", "dog"],
+            "options": [
+                "KCL - https://kcl-lang.io",
+                "凹语言 - https://wa-lang.org",
+                "CodeBlitz - https://codeblitz.cloud.alipay.com/zh"
+            ],
         }
     ],
     "tasks": [

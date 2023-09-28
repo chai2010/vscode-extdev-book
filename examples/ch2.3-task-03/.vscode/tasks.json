@@ -17,7 +17,11 @@
             "id": "pick-value",
             "type": "pickString",
             "description": "pick value",
-            "options": ["apple", "cat", "dog"],
+            "options": [
+                "KCL - https://kcl-lang.io",
+                "凹语言 - https://wa-lang.org",
+                "CodeBlitz - https://codeblitz.cloud.alipay.com/zh"
+            ],
         },
         {
             "id": "password",
