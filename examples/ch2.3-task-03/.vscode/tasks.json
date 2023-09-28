@@ -1,0 +1,58 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "options": {
+        "env": {
+            "MyVar": "${workspaceFolder}/../.."
+        }
+    },
+    "inputs": [
+        {
+            "id": "str",
+            "type": "promptString",
+            "description": "str input"
+        },
+        {
+            "id": "pick-value",
+            "type": "pickString",
+            "description": "pick value",
+            "options": ["apple", "cat", "dog"],
+        },
+        {
+            "id": "password",
+            "type": "promptString",
+            "description": "input password",
+            "password": true
+        }
+    ],
+    "tasks": [
+        {
+            "label": "echo-env",
+            "type": "shell",
+            "command": "echo",
+            "args": ["${MyVar}"]
+        },
+        {
+            "label": "echo-fontSize",
+            "type": "shell",
+            "command": "echo",
+            "args": ["fontSize:", "${config:editor.fontSize}"]
+        },
+        {
+            "label": "echo-str",
+            "type": "shell",
+            "command": "echo ${input:str}",
+        },
+        {
+            "label": "echo-pick-value",
+            "type": "shell",
+            "command": "echo ${input:pick-value}",
+        },
+        {
+            "label": "echo-password",
+            "type": "shell",
+            "command": "echo ${input:password}",
+        },
+    ]
+}
