@@ -246,8 +246,11 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 
 ### 2.3.6 Task中启动Command
 
-在第1章中我们构建了一个`helloworld.helloWorld`命令，也可以从Task中启动这个命令：
+在第1章中我们构建了一个`helloworld.helloWorld`命令，也可以从Task中启动这个命令。首先通过“Code -> 首选项 -> 键盘快捷方式”打开所有命令的快捷键配置，找到之前安装的 hello 插件注册的命令，通过右键菜单拷贝出命令ID。如图所示：
 
+![](../images/ch2.3-04.png)
+
+对应以下的Task配置：
 
 ```json
 {
@@ -262,17 +265,10 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 }
 ```
 
-`${command:helloworld.helloWorld}` 表示安装的Hello插件注册的命令，后面是命令的ID。
+`${command:helloworld.helloWorld}` 表示安装的Hello插件注册的命令，这样可以通过Task串联其他的VS Code功能。
 
 <!--
-
-
 https://code.visualstudio.com/docs/editor/tasks
 
 https://code.visualstudio.com/docs/editor/tasks-appendix
-
-https://github.com/Microsoft/vscode/issues/11396
-
-https://github.com/microsoft/vscode/issues/108051
-
 -->
