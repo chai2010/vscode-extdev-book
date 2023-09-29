@@ -1,5 +1,9 @@
 # 1.2 理解插件代码
 
+本节简要分析生成的插件工程的结构，便于以后手工方式也可以轻松构建出插件工程。
+
+## 1.2.1 插件的目录结构
+
 插件目录的文件布局如下：
 
 ```
@@ -12,6 +16,34 @@
 ├── jsconfig.json       // JavaScript 类型检查
 ```
 
+其中只有 `extension.js` 和 `package.json` 是插件工程必须要的文件，其他都是辅助文件。
+
+## 1.2.2 `package.json` 工程文件
+
+VS Code 插件本质上是一个 Node.js 工程，精简后的`package.json`内容如下：
+
+```json
+{
+	"name": "helloworld",
+	"description": "",
+	"version": "0.0.1",
+	"engines": { "vscode": "^1.82.0" },
+	"main": "./extension.js",
+	"contributes": {
+		"commands": [
+			{ "command": "helloworld.helloWorld", "title": "Hello World" }
+		]
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.82.0"
+	}
+}
+```
+
+除了 Node.js 工程中常见的 `name`、`version`、`main` 等属性外，`engines`定义了VS Code的最小版本，`contributes` 指定了插件的扩展能力。第一个插件功能比较简单，在开发环境的依赖只有 `@types/vscode`，用于 VS Code 相关 API 的类型提示。
+
+## 1.2.3 插件的入口文件 
+
 我们现在看下 `extension.js` 文件代码：
 
 ```js
@@ -23,10 +55,31 @@ function deactivate() {}
 module.exports = {activate, deactivate}
 ```
 
-插件模块有2个特殊的函数：activate 是在插件被第一次激活时被调用，deactivate 是插件被卸载或者禁用时调用。因此activate函数类似很多编程语言的main函数，是插件的入口函数。
+插件模块有2个特殊的函数：activate 是在插件被第一次激活时被调用，deactivate 是插件被卸载或者禁用时调用。因此activate函数类似很多编程语言的main函数，是插件的入口函数。activate入口函数有一个 `vscode.ExtensionContext` 类型的 context 参赛，表示VS Code 实例的上下文环境。
 
+## 1.2.4 启动配置
 
-activate入口函数有一个 `vscode.ExtensionContext` 类型的 context 参赛，表示VS Code 实例的上下文环境。然后通过 `console.log` 可以在 F5 调试执行时在调试信息窗口看到输出。
+`.vscode/launch.json` 文件定义了调试时到启动参数，其内容如下：
+
+```json
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run Extension",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": ["--extensionDevelopmentPath=${workspaceFolder}"]
+		}
+	]
+}
+```
+
+其中 `--extensionDevelopmentPath` 参数表示设置当前目录为插件代码的开发目录。该配置可以让 F5 进入调试状态执行。
+
+## 1.2.5 调试日志
+
+调试时可以通过 `console.log` 可以在在调试信息窗口看到输出：
 
 ```js
 function activate(context /** @param {vscode.ExtensionContext} */ ) {
@@ -38,6 +91,8 @@ function activate(context /** @param {vscode.ExtensionContext} */ ) {
 控制台日志显示如下：
 
 ![](../images/ch1.2-01.png)
+
+## 1.2.6 插件的逻辑分析
 
 插件命令的注册过程如下：
 
