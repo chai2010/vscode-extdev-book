@@ -266,3 +266,7 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 ```
 
 `${command:helloworld.helloWorld}` 表示安装的Hello插件注册的命令，比如通过`${command:workbench.action.showCommands}`可以显示全部的命令列表，`${command:welcome.showNewFileEntries}`可以创新新的文件，这样可以通过Task串联其他的VS Code功能。
+
+### 2.3.7 键盘快捷键
+
+具体的Task本身无法绑定键盘快捷键，快捷键配置都是绑定到命令上。同时不支持工作区定制键盘快捷键，只支持针对全局和当前用户定制。具体可以参考“Code -> 首选项 -> 键盘快捷方式”操作界面。
