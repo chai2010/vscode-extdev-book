@@ -266,9 +266,3 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 ```
 
 `${command:helloworld.helloWorld}` 表示安装的Hello插件注册的命令，比如通过`${command:workbench.action.showCommands}`可以显示全部的命令列表，`${command:welcome.showNewFileEntries}`可以创新新的文件，这样可以通过Task串联其他的VS Code功能。
-
-<!--
-https://code.visualstudio.com/docs/editor/tasks
-
-https://code.visualstudio.com/docs/editor/tasks-appendix
--->
