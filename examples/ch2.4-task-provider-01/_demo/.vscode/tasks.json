@@ -1,0 +1,10 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "mdbook: build",
+			"type": "mdbook",
+			"task": "build", // The name of the problem matcher
+	  }
+	]
+}

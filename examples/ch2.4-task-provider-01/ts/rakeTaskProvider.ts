@@ -8,6 +8,9 @@ import * as cp from 'child_process';
 import * as vscode from 'vscode';
 import { error } from 'console';
 
+let _channel: vscode.OutputChannel;
+
+
 export class RakeTaskProvider implements vscode.TaskProvider {
 	static RakeType = 'rake';
 	private rakePromise: Thenable<vscode.Task[]> | undefined = undefined;
