@@ -46,17 +46,7 @@ class MdbookTaskProvider {
 		let previewExec;
 
 		// macos only
-		previewExec = new vscode.ShellExecution(`open ${this.workspaceRoot}/book/index.html`);
-
-		/*
-		const { stdout, stderr } = await exec(commandLine, { cwd: folderString });
-			if (stderr && stderr.length > 0) {
-				getOutputChannel().appendLine(stderr);
-				getOutputChannel().show(true);
-			}
-		*/
-
-		// dependsOn build?
+		previewExec = new vscode.ShellExecution(`mdbook build && open ${this.workspaceRoot}/book/index.html`);
 
 		const previewTask = new vscode.Task(
 			{type: 'mdbook', task: 'preview'}, // kind

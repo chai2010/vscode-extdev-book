@@ -157,7 +157,7 @@ let _channel = null;
 /** @return {vscode.OutputChannel} */
 function getOutputChannel()  {
 	if (!_channel) {
-		_channel = vscode.window.createOutputChannel('Ament Task Provider');
+		_channel = vscode.window.createOutputChannel('Mdbook Task Provider');
 	}
 	return _channel;
 }

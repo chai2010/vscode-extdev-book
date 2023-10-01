@@ -44,7 +44,7 @@ class MdbookTaskProvider {
 		let previewExec;
 
 		// macos only
-		previewExec = new vscode.ShellExecution(`open ${this.workspaceRoot}/book/index.html`);
+		previewExec = new vscode.ShellExecution(`mdbook build && open ${this.workspaceRoot}/book/index.html`);
 
 		// dependsOn build?
 
