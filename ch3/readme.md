@@ -1,5 +1,7 @@
-# 第3章 编辑器模型
+# 第3章 定制工作台界面
 
 <!--
-https://code.visualstudio.com/api/references/contribution-points#contributes.keybindings
+https://code.visualstudio.com/docs/getstarted/userinterface
+https://code.visualstudio.com/api/extension-capabilities/extending-workbench
+https://code.visualstudio.com/api/extension-capabilities/common-capabilities
 -->
