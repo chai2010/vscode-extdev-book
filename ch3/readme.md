@@ -1,7 +1,3 @@
 # 第3章 定制工作台界面
 
-<!--
-https://code.visualstudio.com/docs/getstarted/userinterface
-https://code.visualstudio.com/api/extension-capabilities/extending-workbench
-https://code.visualstudio.com/api/extension-capabilities/common-capabilities
--->
+俗话说有图有真相、一图胜万言，本章将尝试通过插件定制或扩展VS Code工作界面——哪怕是加一个Logo也是比纯命令式更友好。我们先简要介绍工作台界面的布局和功能，然后分布针对Bar、View、Panel和菜单这些图形界面必要的能力进行定制和扩展。

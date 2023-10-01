@@ -16,7 +16,7 @@
   - [Task插件](ch2/ch2.4-task-ext.md)
   - [补充说明](ch2/ch2.5-ext.md)
 * [定制工作台界面](ch3/readme.md)
-  - [界面简介](ch3/ch3.1.md)
+  - [界面简介](ch3/ch3.1-intro.md)
   - [定制Bar](ch3/ch3.2-bar.md)
   - [定制View](ch3/ch3.3-view.md)
   - [定制Panel](ch3/ch3.4-panel.md)
