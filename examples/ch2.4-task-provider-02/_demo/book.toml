@@ -1,0 +1,6 @@
+[book]
+authors = ["chai2010"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Task Provider Demo"

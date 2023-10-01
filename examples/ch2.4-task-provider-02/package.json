@@ -1,0 +1,28 @@
+{
+  "name": "extdev.task.provider",
+  "description": "hello task provider",
+  "version": "0.0.1",
+
+  "main": "./extension.js",
+  "engines": { "vscode": "^1.82.0" },
+  "devDependencies": { "@types/vscode": "^1.82.0" },
+
+  "activationEvents": [
+    "onCommand:workbench.action.tasks.runTask"
+  ],
+  "contributes": {
+    "taskDefinitions": [
+      {
+        "type": "mdbook",
+        "required": [ "task" ],
+        "properties": {
+          "task": {
+            "type": "string",
+            "description": "The mdbook task",
+            "examples": ["build", "preview", "clean"]
+          }
+        }
+      }
+    ]
+  }
+}
