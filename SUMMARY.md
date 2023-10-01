@@ -14,6 +14,7 @@
   - [工作区Task](ch2/ch2.2-task.md)
   - [Task进阶](ch2/ch2.3-task-more.md)
   - [Task插件](ch2/ch2.4-task-ext.md)
+  - [补充说明](ch2/ch2.5-ext.md)
 * [编辑器模型](ch3/readme.md)
 * [语法高亮](ch4/readme.md)
 * [辅助视图](ch5/readme.md)
