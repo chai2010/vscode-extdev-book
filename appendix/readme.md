@@ -13,6 +13,7 @@
 
 - [https://code.visualstudio.com/api](https://code.visualstudio.com/api)
 - [https://code.visualstudio.com/api/get-started/extension-anatomy](https://code.visualstudio.com/api/get-started/extension-anatomy)
+- [https://code.visualstudio.com/api/extension-capabilities/overview](https://code.visualstudio.com/api/extension-capabilities/overview)
 - [https://code.visualstudio.com/api/extension-guides/task-provider](https://code.visualstudio.com/api/extension-guides/task-provider)
 - [https://code.visualstudio.com/api/extension-guides/web-extensions](https://code.visualstudio.com/api/extension-guides/web-extensions)
 - [https://code.visualstudio.com/api/references/contribution-points](https://code.visualstudio.com/api/references/contribution-points)
