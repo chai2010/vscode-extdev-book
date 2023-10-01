@@ -6,6 +6,7 @@
 - [https://code.visualstudio.com/docs/editor/multi-root-workspaces](https://code.visualstudio.com/docs/editor/multi-root-workspaces)
 - [https://code.visualstudio.com/docs/editor/tasks](https://code.visualstudio.com/docs/editor/tasks)
 - [https://code.visualstudio.com/docs/editor/tasks-appendix](https://code.visualstudio.com/docs/editor/tasks-appendix)
+- [https://code.visualstudio.com/docs/editor/variables-reference](https://code.visualstudio.com/docs/editor/variables-reference)
 - [https://code.visualstudio.com/docs/getstarted/keybindings](https://code.visualstudio.com/docs/getstarted/keybindings)
 
 ## A.2 VS Code API 相关
