@@ -20,7 +20,7 @@ golang.go
 ...
 ```
 
-为了开发扩展还需要安装 Node.js、Git工具，然后通过以下命令安装 Yeoman 和 VS Code Extension 生成工具：
+为了开发扩展还需要安装 Node.js、Git工具，然后通过以下命令安装 Yeoman 和 VS Code Extension 生成工具（用于初始化插件工程的脚手架工具、并非是构建插件的必须工具）：
 
 ```
 npm install -g yo generator-code
@@ -50,7 +50,7 @@ $ yo code
 ? Which package manager to use? npm
 ```
 
-生成的工程用 VS Code 单独窗口打开，其中 `extension.js` 是插件的主代码文件：
+为了便于理解，我们选择了生成JavaScript的插件工程，同时打开了机遇JSDoc的类型检查功能。生成的工程用 VS Code 单独窗口打开，其中 `extension.js` 是插件的主代码文件：
 
 ![](../images/ch1.1-01.png)
 

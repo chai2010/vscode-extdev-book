@@ -4,19 +4,17 @@
 
 ## 1.2.1 插件的目录结构
 
-插件目录的文件布局如下：
+插件目录的重要文件布局如下：
 
 ```
 ├── .vscode
-│   ├── extensions.json // 插件信息
 │   └── launch.json     // 执行和调试配置
 ├── README.md           // 说明文件
 ├── extension.js        // 插件代码主文件
-├── package.json        // 包信息
-├── jsconfig.json       // JavaScript 类型检查
+└── package.json        // 包信息
 ```
 
-其中只有 `extension.js` 和 `package.json` 是插件工程必须要的文件，其他都是辅助文件。
+其中只有 `extension.js` 和 `package.json` 是插件工程必须要的文件，其他省略的文件都不是必须的。
 
 ## 1.2.2 `package.json` 工程文件
 
@@ -44,7 +42,7 @@ VS Code 插件本质上是一个 Node.js 工程，精简后的`package.json`内�
 
 ## 1.2.3 插件的入口文件 
 
-我们现在看下 `extension.js` 文件代码：
+我们现在看下插件的主体模块，对应 `extension.js` 文件代码：
 
 ```js
 const vscode = require('vscode');
@@ -55,12 +53,11 @@ function deactivate() {}
 module.exports = {activate, deactivate}
 ```
 
-插件模块有2个特殊的函数：activate 是在插件被第一次激活时被调用，deactivate 是插件被卸载或者禁用时调用。因此activate函数类似很多编程语言的main函数，是插件的入口函数。activate入口函数有一个 `vscode.ExtensionContext` 类型的 context 参赛，表示VS Code 实例的上下文环境。
+插件模块有2个特殊的函数：`activate` 是在插件被第一次激活时被调用，`deactivate` 是插件被卸载或者禁用时调用。因此 `activate` 函数类似很多编程语言的 `main` 函数，是插件的入口函数。`activate` 入口函数有一个 `vscode.ExtensionContext` 类型的 `context` 参数，表示VS Code 实例的上下文环境。
 
 ## 1.2.4 启动配置
 
-`.vscode/launch.json` 文件定义了调试时到启动参数，其内容如下：
-
+插件工程初始化完成后，我们通过 F5 进入调试执行模式。启动方式在 `.vscode/launch.json` 文件定义：
 ```json
 {
 	"version": "0.2.0",
@@ -75,11 +72,11 @@ module.exports = {activate, deactivate}
 }
 ```
 
-其中 `--extensionDevelopmentPath` 参数表示设置当前目录为插件代码的开发目录。该配置可以让 F5 进入调试状态执行。
+其中指明了以 `extensionHost` 插件宿主模式启动。传给插件进程的指定了 `--extensionDevelopmentPath` 命令行参数，表示设置当前目录为插件代码的开发目录。
 
 ## 1.2.5 调试日志
 
-调试时可以通过 `console.log` 可以在在调试信息窗口看到输出：
+在开发阶段调试时可以通过 `console.log` 可以在在调试信息，在宿主的VS Code窗口可以看到输出日志：
 
 ```js
 function activate(context /** @param {vscode.ExtensionContext} */ ) {
@@ -94,7 +91,7 @@ function activate(context /** @param {vscode.ExtensionContext} */ ) {
 
 ## 1.2.6 插件的逻辑分析
 
-插件命令的注册过程如下：
+插件激活时模块的`activate`被调用进行初始化：，
 
 ```js
 function activate(context) {
@@ -106,9 +103,9 @@ function activate(context) {
 }
 ```
 
-首先用 `vscode.commands.registerCommand` 生成一个插件命令，命令对应是一个闭包函数。然后通过 `context.subscriptions.push(disposable)` 注册到 VS Code 实例上下文中。
+首先用 `vscode.commands.registerCommand` 注册一个插件命令，然后通过 `context.subscriptions.push(disposable)` 注册到 VS Code 实例上下文中。注册的命令对应的是一个闭包函数，是通过调用`vscode.window.showInformationMessage("...")`函数以消息框的形式显示一个文本信息。
 
-插件的命令是“helloworld.helloWorld”，在 `package.json` 文件的 `contributes.commands` 配置必须对应。
+插件的命令名称类似静态信息，需要在`package.json`提前注册，这样新命令对应的插件在激活的时候才真正执行`activate`函数初始化。`package.json` 文件内容如下：
 
 ```json
 {
@@ -127,7 +124,7 @@ function activate(context) {
 }
 ```
 
-其中`name`是插件的名字。`main`指定了主程序入口，`engines.vscode`制定了VS Code的最低版本，如果要对外发布还需要设置`publisher`表示发布者的ID，`<publisher>.<name>`会组成插件全局唯一ID。
+其中`name`是插件的名字。`main`指定了主程序入口，`engines.vscode`制定了VS Code的最低版本，如果要对外发布还需要设置`publisher`表示发布者的ID，`<publisher>.<name>`会组成插件全局唯一ID。插件的能力在`contributes`属性中静态描述，其中`command`对应注册的命令ID和标题。
 
 当插件命令被执行时，在闭包函数通过 `vscode.window.showInformationMessage('...')` 函数调用显示一个弹窗信息。如图所示：
 
