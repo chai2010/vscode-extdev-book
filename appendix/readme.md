@@ -18,8 +18,9 @@
 - [https://code.visualstudio.com/api/extension-guides/web-extensions](https://code.visualstudio.com/api/extension-guides/web-extensions)
 - [https://code.visualstudio.com/api/references/contribution-points](https://code.visualstudio.com/api/references/contribution-points)
 
-## A.3 WASM 相关
+## A.3 Web & WASM 相关
 
+- [https://code.visualstudio.com/blogs/2021/10/20/vscode-dev](https://code.visualstudio.com/blogs/2021/10/20/vscode-dev)
 - [https://code.visualstudio.com/blogs/2023/06/05/vscode-wasm-wasi](https://code.visualstudio.com/blogs/2023/06/05/vscode-wasm-wasi)
 - [https://news.ycombinator.com/item?id=35768210](https://news.ycombinator.com/item?id=35768210)
 - [https://wa-lang.org/](https://wa-lang.org/)
@@ -28,3 +29,6 @@
 
 - [https://github.com/microsoft/vscode-extension-samples](https://github.com/microsoft/vscode-extension-samples)
 
+## A.5 插件商店
+
+- [https://code.visualstudio.com/api/working-with-extensions/publishing-extension](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
