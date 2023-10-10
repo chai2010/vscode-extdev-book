@@ -68,7 +68,7 @@ VS Code针对常用的Go、Node.js、Ruby、TypeScript等语言都定制了配�
 }
 ```
 
-当运行Task命令是插件被激活。
+当运行Task命令时插件被激活。
 
 ## 2.4.3 插件注册和销毁代码
 
@@ -94,7 +94,7 @@ function deactivate() {
 }
 ```
 
-在`activate`函数先获取工作区路径，然后通过`vscode.tasks.registerTaskProvider`注册新的插件类型。新的插件动力由MdbookTaskProvider类实现，在`mdbookTaskProvider.js`文件定义：
+在`activate`函数先获取工作区路径，然后通过`vscode.tasks.registerTaskProvider`注册新的插件类型。新的插件动力由`MdbookTaskProvider`类实现，在`mdbookTaskProvider.js`文件定义：
 
 ```js
 class MdbookTaskProvider {
@@ -122,7 +122,7 @@ class MdbookTaskProvider {
 }
 ```
 
-Task的Provider必须提供provideTasks和resolveTask两个方法，分布用于构造和修复用户要执行的Task。查看provideTasks实现可以看到`this.mdbookPromise`记录全部的task对象，由`this.getTasks()`方法初始化。
+Task的Provider实现必须提供`provideTasks`和`resolveTask`两个方法，分别用于构造和修复用户要执行的Task。查看`provideTasks`实现可以看到`this.mdbookPromise`记录全部的task对象，由`this.getTasks()`方法初始化。
 
 `getTasks`方法实现如下：
 

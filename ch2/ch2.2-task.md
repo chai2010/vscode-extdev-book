@@ -22,11 +22,11 @@ VS Code插件的目是为了自动化提效，但是提效并非只能通过插�
 
 ![](../images/ch2.2-01.png)
 
-然后选择“Others 运行任意外部命令的示例”
+然后选择“Others 运行任意外部命令的示例”：
 
 ![](../images/ch2.2-02.png)
 
-Task文件是组织在工作区某个目录下的，生成的是`./.vscode/task.json`文件：
+Task文件是组织在某个工作区目录下的，生成的是`./.vscode/task.json`文件：
 
 ![](../images/ch2.2-03.png)
 

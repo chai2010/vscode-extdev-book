@@ -4,7 +4,7 @@
 
 ## 2.3.1 Task配置规范
 
-task.js文件对应的数据结构由`TaskConfiguration`定义：
+`task.js`文件对应的数据结构由`TaskConfiguration`定义：
 
 ```ts
 interface TaskConfiguration {
@@ -38,7 +38,7 @@ export interface CommandOptions {
 }
 ```
 
-主要是当前工作目录和环境变量。
+主要是当前Task执行时的工作目录和环境变量。
 
 ## 2.3.2 MDBook工作流Task
 
@@ -66,11 +66,11 @@ export interface CommandOptions {
 }
 ```
 
-每个Task的`label`指定其唯一的名字。分别有 `mdbook-build`/`mdbook-preview`/`mdbook-clean` 三个命令，分别对应构建、预览和清理三个常用操作。
+每个Task的`label`指定其唯一的名字。分别有 `mdbook-build`/`mdbook-preview`/`mdbook-clean` 三个Task，分别对应构建、预览和清理三个常用操作。
 
-#### 2.3.2.1 `mdbook-build` 命令
+#### 2.3.2.1 `mdbook-build` Task
 
-构建命令的常用形式为`mdbook build [dir]`，其中`[dir]`是可选的要构建的电子书根目录，如果省略目录则默认为当前目录。完整的命令配置如下：
+MDBook的构建命令的常用形式为`mdbook build [dir]`，其中`[dir]`是可选的要构建的电子书根目录，如果省略目录则默认为当前目录。完整的命令配置如下：
 
 ```json
         {
@@ -83,7 +83,7 @@ export interface CommandOptions {
 
 Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命令，`args`指定参数列表。参数中的`${workspaceFolder}`是VS Code的内置变量，表示当前工作区的根目录。
 
-#### 2.3.2.2 `mdbook-preview` 命令
+#### 2.3.2.2 `mdbook-preview` Task
 
 预览是通过本地命令打开默认的浏览器，打开构建后的页面完成。命令配置如下：
 
@@ -105,9 +105,9 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 
 其中`dependsOn`该任务依赖`mdbook-build`任务完成构建。然后通过`osx`指定macOS系统下的打开浏览器的命令，另外的`linux`和`windows`系统的打开浏览器的方式可以参考代码。
 
-#### 2.3.2.3 `mdbook-clean` 命令
+#### 2.3.2.3 `mdbook-clean` Task
 
-清楚命令是删除构建生成的`book`命令，任务的配置参数如下：
+MDBook清除命令是删除构建生成的`book`命令，任务的配置参数如下：
 
 ```json
         {
@@ -269,4 +269,4 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
 
 ### 2.3.7 键盘快捷键
 
-具体的Task本身无法绑定键盘快捷键，快捷键配置都是绑定到命令上。同时不支持工作区定制键盘快捷键，只支持针对全局和当前用户定制。具体可以参考“Code -> 首选项 -> 键盘快捷方式”操作界面。
+具体的Task本身无法绑定键盘快捷键，快捷键配置都是绑定到命令上。同时当前版本VS Code不支持工作区定制键盘快捷键，只支持针对全局和当前用户定制。具体可以参考“Code -> 首选项 -> 键盘快捷方式”操作界面。
