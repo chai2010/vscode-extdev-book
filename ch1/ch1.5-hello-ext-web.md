@@ -12,7 +12,7 @@ VS Code是基于Chrome内核构建的IDE，从诞生之日起很多人就在尝�
 
 ## 1.5.2 插件增加 Web 版
 
-浏览器环境比本地插件更为严格，它不能使用Node.js——也就不能访问本地的操作系统能力。此外Web版插件的入口和本地是分开的。现在我们将前一节的插件增加Web环境的支持。只需要微调下 `package.json` 文件即可：
+浏览器环境比本地插件更为严格，它不能使用Node.js——也就不能访问本地的操作系统能力。此外Web版插件的入口和本地是分开的。现在我们将前一节的插件增加Web环境的支持。可以通过 `yo code` 生成一个 "New Web Extension (TypeScript)" 类型的工程。目前的例子比较简单，可以通过手工微调下 `package.json` 文件即可：
 
 ```json
 {
@@ -23,7 +23,21 @@ VS Code是基于Chrome内核构建的IDE，从诞生之日起很多人就在尝�
 }
 ```
 
-其中版本号做了升级（否则不方便上传），其次是通过`browser`属性指定Web版插件的入口。
+其中版本号做了升级（否则不方便上传），其次是通过`browser`属性指定Web版插件的入口。此外如果要在本地F5执行Web版插件还需要改下`.vscode/launch.json`文件：
+
+```json
+		{
+			"name": "Run Web Extension ",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionDevelopmentKind=web"
+			]
+		},
+```
+
+针对Web插件启动VS Code时命令行增加一个`--extensionDevelopmentKind=web`参数。
 
 ## 1.5.3 重新打包上传
 

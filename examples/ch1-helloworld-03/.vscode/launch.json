@@ -14,6 +14,15 @@
 			]
 		},
 		{
+			"name": "Run Web Extension ",
+			"type": "extensionHost",
+			"request": "launch",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionDevelopmentKind=web"
+			]
+		},
+		{
 			"name": "Extension Tests",
 			"type": "extensionHost",
 			"request": "launch",
