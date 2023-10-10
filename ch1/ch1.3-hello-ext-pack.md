@@ -13,7 +13,7 @@ $ vsce package
 ERROR  It seems the README.md still contains template text. Make sure to edit the README.md file before you package or publish your extension.
 ```
 
-第一次执行可能会提示`README.md`文件是模板内容需要更新。更新README文件后重新执行打包命令：
+第一次执行可能会提示`README.md`文件是模板内容需要更新，可以先删除生成的内容简单处理。更新README文件后重新执行打包命令：
 
 ```
 $ vsce package
@@ -24,9 +24,9 @@ Do you want to continue? [y/N] y
  DONE  Packaged: /Users/chai/vscode-extdev-book/examples/helloworld/helloworld-0.0.1.vsix (6 files, 2.6KB)
 ```
 
-打包过程中还会检查仓库、版权文件等内容是否合规，这是是一个正规的插件发布到插件市场必须要提供的信息。为了简化流程这里先忽略这些警告信息，最终生成了 `helloworld-0.0.1.vsix` 打包后到插件。
+打包过程中还会检查仓库地址、版权文件等内容是否合规，这是是一个正规的插件发布到插件市场必须要提供的信息。为了简化流程这里先忽略这些警告信息。最终会生成打包后的 `helloworld-0.0.1.vsix` 插件文件。
 
-`vsix` 是标准的 zip 压缩格式，其中打包的文件对应如下目录：
+`vsix` 是标准的 zip 压缩格式，其中打包的文件对应如下目录结构：
 
 ```
 ├── [Content_Types].xml
