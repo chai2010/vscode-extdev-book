@@ -1,6 +1,3 @@
-# https://giscus.app
-# https://github.com/badboy/mdbook-mermaid
-
 [book]
 title = "VS Code 插件开发"
 authors = ["柴树杉"]
