@@ -30,7 +30,7 @@
 
 在配置的“扩展类别”下可以找到插件的专属配置。VS Code为基础类型的配置提供的友好的界面编辑支持。同时VS Code也提供配置相关的API，`vscode.workspace`名字空间提供了`getConfiguration`函数返回配置对象：
 
-```js
+```ts
 namespace workspace {
     function getConfiguration(section?: string, scope?: ConfigurationScope): WorkspaceConfiguration;
 }
@@ -87,7 +87,7 @@ export interface WorkspaceConfiguration {
 
 配置数据一般是比较固定且静态的，如果是运行时的插件状态数据可以通过`workspaceState`或`globalState`存储。他们在工作区定义如下：
 
-```js
+```ts
 namespace workspace {
     readonly workspaceState: Memento;
     readonly globalState: Memento & {
@@ -98,7 +98,7 @@ namespace workspace {
 
 状态对象都是`Memento`对象类型，全局状态多了一个同步的更新操作。`Memento`定义如下：
 
-```js
+```ts
 interface Memento {
 	keys(): readonly string[];
 	get<T>(key: string): T | undefined;
