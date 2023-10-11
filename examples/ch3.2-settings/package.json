@@ -1,0 +1,33 @@
+{
+	"name": "helloworld-minimal-sample",
+	"description": "Minimal HelloWorld example for VS Code",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.82.0"
+	},
+	"activationEvents": [],
+	"main": "./extension.js",
+	"browser": "./extension.js",
+	"contributes": {
+		"commands": [
+			{ "command": "extdev.helloWorld", "title": "Hello World" },
+			{ "command": "extdev.showConfig", "title": "Show Extdev book title" },
+			{ "command": "extdev.updateConfig", "title": "Updage Extdev book title" }
+		],
+		"configuration": {
+			"type": "object",
+			"title": "VS Code 插件开发",
+			"properties": {
+				"vscode-extdev-book.bookTitle": {
+					"type": "string",
+					"default": "vscode extension dev book",
+					"description": "book title"
+				}
+			}
+		}
+	},
+	"scripts": {},
+	"devDependencies": {
+		"@types/vscode": "^1.82.0"
+	}
+}
