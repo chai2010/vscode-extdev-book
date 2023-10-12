@@ -10,7 +10,7 @@ VS Code提供了普通信息、警告信息、错误信息三种通知消息显�
 namespace windows {
     function showInformationMessage(message: string);
     function showWarningMessage(message: string);
-    function showWarningMessage(message: string);
+    function showErrorMessage(message: string);
 }
 ```
 
