@@ -1,0 +1,22 @@
+{
+	"name": "extdev-ch3.3-msgbox",
+	"description": "Minimal HelloWorld example for VS Code",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.82.0"
+	},
+	"activationEvents": [],
+	"main": "./extension.js",
+	"browser": "./extension.js",
+	"contributes": {
+		"commands": [
+			{ "command": "extdev.showMsgbox", "title": "info message box" },
+			{ "command": "extdev.showMsgboxOpt", "title": "info message box with option" },
+			{ "command": "extdev.openPage", "title": "open page" }
+		]
+	},
+	"scripts": {},
+	"devDependencies": {
+		"@types/vscode": "^1.82.0"
+	}
+}
