@@ -18,14 +18,14 @@ VS Code针对常用的Go、Node.js、Ruby、TypeScript等语言都定制了配�
 
 ```json
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "mdbook: build",
-			"type": "mdbook",
-			"task": "build"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "mdbook: build",
+            "type": "mdbook",
+            "task": "build"
+        }
+    ]
 }
 ```
 
@@ -79,18 +79,18 @@ const vscode = require('vscode');
 const pkg = require("./mdbookTaskProvider");
 
 function activate(context /** @param {vscode.ExtensionContext} */) {
-	const workspaceRoot = vscode.workspace.workspaceFolders[0].uri.fsPath;
+    const workspaceRoot = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
-	mdbookTaskProvider = vscode.tasks.registerTaskProvider(
-		pkg.MdbookTaskProvider.MdbookType,
-		new pkg.MdbookTaskProvider(workspaceRoot)
-	);
+    mdbookTaskProvider = vscode.tasks.registerTaskProvider(
+        pkg.MdbookTaskProvider.MdbookType,
+        new pkg.MdbookTaskProvider(workspaceRoot)
+    );
 }
 
 function deactivate() {
-	if (mdbookTaskProvider) {
-		mdbookTaskProvider.dispose();
-	}
+    if (mdbookTaskProvider) {
+        mdbookTaskProvider.dispose();
+    }
 }
 ```
 
@@ -98,27 +98,27 @@ function deactivate() {
 
 ```js
 class MdbookTaskProvider {
-	static MdbookType = 'mdbook';
+    static MdbookType = 'mdbook';
 
-	/** @type {string} */
-	workspaceRoot = undefined;
+    /** @type {string} */
+    workspaceRoot = undefined;
 
-	/** @type {Thenable<vscode.Task[]> | undefined} */
-	mdbookPromise = undefined;
+    /** @type {Thenable<vscode.Task[]> | undefined} */
+    mdbookPromise = undefined;
 
-	constructor(workspaceRoot /** @param {string} */) {
-		this.workspaceRoot = workspaceRoot;
-	}
+    constructor(workspaceRoot /** @param {string} */) {
+        this.workspaceRoot = workspaceRoot;
+    }
 
-	provideTasks() {
-		if(!this.mdbookPromise) {
-			this.mdbookPromise = this.getTasks();
-		}
-		return this.mdbookPromise;
-	}
-	resolveTask(_task) {
-		return undefined;
-	}
+    provideTasks() {
+        if(!this.mdbookPromise) {
+            this.mdbookPromise = this.getTasks();
+        }
+        return this.mdbookPromise;
+    }
+    resolveTask(_task) {
+        return undefined;
+    }
 }
 ```
 
@@ -127,21 +127,21 @@ Task的Provider实现必须提供`provideTasks`和`resolveTask`两个方法，�
 `getTasks`方法实现如下：
 
 ```js
-	getTasks() {
-		const buildTask = new vscode.Task(
-			{type: 'mdbook', task: 'build'}, // kind
-			vscode.TaskScope.Workspace,      // scope
-			'build',                         // name
-			'mdbook',                        // source
-			new vscode.ShellExecution(`mdbook build`), // execution
-			`mdbook_build`
-		);
+    getTasks() {
+        const buildTask = new vscode.Task(
+            {type: 'mdbook', task: 'build'}, // kind
+            vscode.TaskScope.Workspace,      // scope
+            'build',                         // name
+            'mdbook',                        // source
+            new vscode.ShellExecution(`mdbook build`), // execution
+            `mdbook_build`
+        );
 
-		const previewTask = new vscode.Task(...);
-		const cleanTask= new vscode.Task(...);
+        const previewTask = new vscode.Task(...);
+        const cleanTask= new vscode.Task(...);
 
-		return [buildTask, previewTask, cleanTask];
-	}
+        return [buildTask, previewTask, cleanTask];
+    }
 ```
 
 定义好每个task，然后作为列表返回。每个task可以绑定执行的命令，比如`vscode.ShellExecution("mdbook build")`等价于执行一个`mdbook build`命令（也可以自定义扩展命令）。
@@ -156,23 +156,23 @@ let _channel = null;
 
 /** @return {vscode.OutputChannel} */
 function getOutputChannel()  {
-	if (!_channel) {
-		_channel = vscode.window.createOutputChannel('Mdbook Task Provider');
-	}
-	return _channel;
+    if (!_channel) {
+        _channel = vscode.window.createOutputChannel('Mdbook Task Provider');
+    }
+    return _channel;
 }
 
 function activate(context /** @param {vscode.ExtensionContext} */) {
-	const workspaceRoot =
-		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
-		? vscode.workspace.workspaceFolders[0].uri.fsPath
-		: undefined;
-	if (!workspaceRoot) {
-		getOutputChannel().appendLine('Mdbook task provider requires a workspace root.');
-		getOutputChannel().show(true);
-		return;
-	}
-	...
+    const workspaceRoot =
+        vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
+        ? vscode.workspace.workspaceFolders[0].uri.fsPath
+        : undefined;
+    if (!workspaceRoot) {
+        getOutputChannel().appendLine('Mdbook task provider requires a workspace root.');
+        getOutputChannel().show(true);
+        return;
+    }
+    ...
 }
 ```
 

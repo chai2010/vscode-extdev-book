@@ -26,15 +26,15 @@ VS Code是基于Chrome内核构建的IDE，从诞生之日起很多人就在尝�
 其中版本号做了升级（否则不方便上传），其次是通过`browser`属性指定Web版插件的入口。此外如果要在本地F5执行Web版插件还需要改下`.vscode/launch.json`文件：
 
 ```json
-		{
-			"name": "Run Web Extension ",
-			"type": "extensionHost",
-			"request": "launch",
-			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionDevelopmentKind=web"
-			]
-		},
+    {
+        "name": "Run Web Extension ",
+        "type": "extensionHost",
+        "request": "launch",
+        "args": [
+            "--extensionDevelopmentPath=${workspaceFolder}",
+            "--extensionDevelopmentKind=web"
+        ]
+    },
 ```
 
 针对Web插件启动VS Code时命令行增加一个`--extensionDevelopmentKind=web`参数。

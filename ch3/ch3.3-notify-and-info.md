@@ -8,9 +8,9 @@ VS Code提供了普通信息、警告信息、错误信息三种通知消息显�
 
 ```ts
 namespace windows {
-	function showInformationMessage(message: string);
-	function showWarningMessage(message: string);
-	function showWarningMessage(message: string);
+    function showInformationMessage(message: string);
+    function showWarningMessage(message: string);
+    function showWarningMessage(message: string);
 }
 ```
 
@@ -26,27 +26,30 @@ namespace windows {
 
 ```ts
 function showInformationMessage(
-	message: string, ...items: string[]
+    message: string, ...items: string[]
 ): Thenable<string | undefined>;
 ```
 
 可以通过返回值判断不同的字符串输入，下面是从“KCL”、“凹语言”、“CodeBlitz”三个中选择一个打开：
 
 ```js
-	context.subscriptions.push(vscode.commands.registerCommand('extdev.openPage', () => {
-		vscode.window.showInformationMessage(
-			'请选择要打开的网页',
-			"KCL", "凹语言", "CodeBlitz"
-		).then(result => {
-			if(result === 'KCL') {
-				child_process.exec(`open 'https://kcl-lang.io'`);
-			} else if (result == '凹语言') {
-				child_process.exec(`open 'https://wa-lang.org'`);
-			}else  {
-				child_process.exec(`open 'https://codeblitz.cloud.alipay.com/zh'`);
-			}
-		});
-	}));
+/** @param {vscode.ExtensionContext} context */
+function activate(context) {
+    context.subscriptions.push(vscode.commands.registerCommand('extdev.openPage', () => {
+        vscode.window.showInformationMessage(
+            '请选择要打开的网页',
+            "KCL", "凹语言", "CodeBlitz"
+        ).then(result => {
+            if(result === 'KCL') {
+                child_process.exec(`open 'https://kcl-lang.io'`);
+            } else if (result == '凹语言') {
+                child_process.exec(`open 'https://wa-lang.org'`);
+            }else  {
+                child_process.exec(`open 'https://codeblitz.cloud.alipay.com/zh'`);
+            }
+        });
+    }));
+}
 ```
 
 获取返回值后通过Node.js的`child_process.exec`调用本地的`open`命令在浏览器打开网站。这个例子只能在Linux或macOS本地环境使用。下面是显示效果：
@@ -59,31 +62,34 @@ function showInformationMessage(
 
 ```ts
 export interface MessageOptions {
-	modal?: boolean;
-	detail?: string;
+    modal?: boolean;
+    detail?: string;
 }
 
 export interface MessageItem {
-	title: string;
-	isCloseAffordance?: boolean;
+    title: string;
+    isCloseAffordance?: boolean;
 }
 
 function showInformationMessage(
-	message: string, options: MessageOptions, ...items: MessageItem[]
+    message: string, options: MessageOptions, ...items: MessageItem[]
 ): Thenable<MessageItem | undefined>;
 ```
 
 `MessageOptions`可以设置模式窗口还是非模式，还有详细的说明信息。`MessageItem`则是每个选项的更信息。以下是演示代码：
 
 ```js
-	context.subscriptions.push(vscode.commands.registerCommand('extdev.showMsgboxOpt', () => {
-		vscode.window.showInformationMessage(
-			'请选择要打开的网页', {'modal':true, 'detail': "更多信息"},
-			{"title":"Retry"}, {"title":"Open Log"}
-		).then(result => {
-			console.log(`result: ${result.title}`);
-		});
-	}));
+/** @param {vscode.ExtensionContext} context */
+function activate(context) {
+    context.subscriptions.push(vscode.commands.registerCommand('extdev.showMsgboxOpt', () => {
+        vscode.window.showInformationMessage(
+            '请选择要打开的网页', {'modal':true, 'detail': "更多信息"},
+            {"title":"Retry"}, {"title":"Open Log"}
+        ).then(result => {
+            console.log(`result: ${result.title}`);
+        });
+    }));
+}
 ```
 
 显示效果如下：
@@ -96,18 +102,21 @@ function showInformationMessage(
 
 ```ts
 namespace windows {
-	function setStatusBarMessage(text: string): Disposable;
-	function setStatusBarMessage(text: string, hideAfterTimeout: number): Disposable;
+    function setStatusBarMessage(text: string): Disposable;
+    function setStatusBarMessage(text: string, hideAfterTimeout: number): Disposable;
 }
 ```
 
 下面在命令执行的时候显示命令，3秒钟后隐藏：
 
 ```js
-	context.subscriptions.push(vscode.commands.registerCommand('extdev.showMsgbox', () => {
-		vscode.window.setStatusBarMessage('cmd: extdev.showMsgbox', 3000);
-		...
-	}));
+/** @param {vscode.ExtensionContext} context */
+function activate(context) {
+    context.subscriptions.push(vscode.commands.registerCommand('extdev.showMsgbox', () => {
+        vscode.window.setStatusBarMessage('cmd: extdev.showMsgbox', 3000);
+        ...
+    }));
+}
 ```
 
 显示效果如下：

@@ -8,8 +8,8 @@
 
 ```ts
 interface TaskConfiguration {
-  version: '2.0.0';
-  tasks?: TaskDescription[];
+    version: '2.0.0';
+    tasks?: TaskDescription[];
 }
 ```
 
@@ -17,13 +17,13 @@ interface TaskConfiguration {
 
 ```ts
 interface TaskDescription {
-  label: string; // The task's name
-  type: 'shell' | 'process';
-  command: string;
-  args?: string[];
-  options?: CommandOptions;
-  group?: 'build' | 'test' | { kind: 'build' | 'test'; isDefault: boolean };
-  dependsOn?: string[];
+    label: string; // The task's name
+    type: 'shell' | 'process';
+    command: string;
+    args?: string[];
+    options?: CommandOptions;
+    group?: 'build' | 'test' | { kind: 'build' | 'test'; isDefault: boolean };
+    dependsOn?: string[];
 }
 ```
 
@@ -33,8 +33,8 @@ interface TaskDescription {
 
 ```ts
 export interface CommandOptions {
-  cwd?: string;
-  env?: { [key: string]: string };
+    cwd?: string;
+    env?: { [key: string]: string };
 }
 ```
 

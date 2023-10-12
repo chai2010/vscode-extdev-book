@@ -79,7 +79,8 @@ module.exports = {activate, deactivate}
 在开发阶段调试时可以通过 `console.log` 可以在在调试信息，在宿主的VS Code窗口可以看到输出日志：
 
 ```js
-function activate(context /** @param {vscode.ExtensionContext} */ ) {
+/** @param {vscode.ExtensionContext} context */
+function activate(context) {
   console.log('Congratulations, your extension "helloworld" is now active!');
   ...
 }

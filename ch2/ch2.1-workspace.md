@@ -59,12 +59,12 @@ VS Code可以打开一个空窗口、打开一个或者多个文件、打开一�
 
 ```json
 {
-	"folders": [
-		{"path": "."} //, {"path": "../.."}
-	],
-	"settings": {
-		"editor.fontSize": 12
-	}
+    "folders": [
+        {"path": "."} //, {"path": "../.."}
+    ],
+    "settings": {
+        "editor.fontSize": 12
+    }
 }
 ```
 

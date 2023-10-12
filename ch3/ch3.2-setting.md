@@ -59,10 +59,10 @@ export interface WorkspaceConfiguration {
         const bookTitle = config.get('vscode-extdev-book.bookTitle');
         vscode.window.showInformationMessage(`bookTitle: ${bookTitle}`);
     }));
-	context.subscriptions.push(vscode.commands.registerCommand('extdev.updateConfig', () => {
-		const config = vscode.workspace.getConfiguration();
-		config.update('vscode-extdev-book.bookTitle', "《VS Code插件开发》")
-	}));
+    context.subscriptions.push(vscode.commands.registerCommand('extdev.updateConfig', () => {
+        const config = vscode.workspace.getConfiguration();
+        config.update('vscode-extdev-book.bookTitle', "《VS Code插件开发》")
+    }));
 ```
 
 首先`vscode.workspace.getConfiguration()`获取配置对象，然后通过`vscode-extdev-book.bookTitle`配置的全局唯一ID来读取和修改。
@@ -70,15 +70,15 @@ export interface WorkspaceConfiguration {
 另外可以通过`vscode.workspace.onDidChangeConfiguration()`监听全局配置的变化。下面的代码监听并过滤当前插件的配置变化：
 
 ```js
-	const lastBookTitle = vscode.workspace.getConfiguration().get('vscode-extdev-book.bookTitle');
-	context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(() => {
-		const config = vscode.workspace.getConfiguration();
-		const bookTitle = config.get('vscode-extdev-book.bookTitle');
-		if(lastBookTitle != bookTitle) {
-			vscode.window.showInformationMessage(`bookTitle changed: ${bookTitle}`);
-			lastBookTitle = bookTitle;
-		}
-	}));
+    const lastBookTitle = vscode.workspace.getConfiguration().get('vscode-extdev-book.bookTitle');
+    context.subscriptions.push(vscode.workspace.onDidChangeConfiguration(() => {
+        const config = vscode.workspace.getConfiguration();
+        const bookTitle = config.get('vscode-extdev-book.bookTitle');
+        if(lastBookTitle != bookTitle) {
+            vscode.window.showInformationMessage(`bookTitle changed: ${bookTitle}`);
+            lastBookTitle = bookTitle;
+        }
+    }));
 ```
 
 这样就实现了对插件配置的精确监听。
@@ -100,10 +100,10 @@ namespace workspace {
 
 ```ts
 interface Memento {
-	keys(): readonly string[];
-	get<T>(key: string): T | undefined;
-	get<T>(key: string, defaultValue: T): T;
-	update(key: string, value: any): Thenable<void>;
+    keys(): readonly string[];
+    get<T>(key: string): T | undefined;
+    get<T>(key: string, defaultValue: T): T;
+    update(key: string, value: any): Thenable<void>;
 }
 ```
 
