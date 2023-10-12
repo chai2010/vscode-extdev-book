@@ -12,6 +12,7 @@ deploy:
 	mdbook build
 	-rm book/.gitignore
 	-rm -rf book/.git
+	-rm -rf book/examples
 
 	cd book && git init
 	cd book && git add .
