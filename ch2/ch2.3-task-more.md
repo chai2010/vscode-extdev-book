@@ -40,9 +40,9 @@ export interface CommandOptions {
 
 主要是当前Task执行时的工作目录和环境变量。
 
-## 2.3.2 MDBook工作流Task
+## 2.3.2 MnBook工作流Task
 
-本书采用 [MDBook](https://rust-lang.github.io/mdBook/) 构建，为了提高工作效率我们可以构建一个MDBook预览Task。具体需要以下流程：首先在仓库根目录命令行环境通过 `mdbook build` 命令构建出 `book` 子目录，然后用浏览器打开 `./book/index.html` 文件预览。因此我们先假定本地已经安装有 `mdbook` 命令。
+本书采用 [MnBook](https://github.com/wa-lang/mnbook) 构建，只是凹语言社区开发的精简版的 Markdown 图书构建工具。为了提高工作效率我们可以构建一个MnBook预览Task。具体需要以下流程：首先在仓库根目录命令行环境通过 `mnbook build` 命令构建出 `book` 子目录，然后用浏览器打开 `./book/index.html` 文件预览。因此我们先假定本地已经安装有 `mnbook` 命令。
 
 配置 task.json 文件整体结构如下：
 
@@ -51,46 +51,46 @@ export interface CommandOptions {
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "mdbook-build",
+            "label": "mnbook-build",
             // 待补充
         },
         {
-            "label": "mdbook-preview",
+            "label": "mnbook-preview",
             // 待补充
         },
         {
-            "label": "mdbook-clean",
+            "label": "mnbook-clean",
             // 待补充
         }
     ]
 }
 ```
 
-每个Task的`label`指定其唯一的名字。分别有 `mdbook-build`/`mdbook-preview`/`mdbook-clean` 三个Task，分别对应构建、预览和清理三个常用操作。
+每个Task的`label`指定其唯一的名字。分别有 `mnbook-build`/`mnbook-preview`/`mnbook-clean` 三个Task，分别对应构建、预览和清理三个常用操作。
 
-#### 2.3.2.1 `mdbook-build` Task
+#### 2.3.2.1 `mnbook-build` Task
 
-MDBook的构建命令的常用形式为`mdbook build [dir]`，其中`[dir]`是可选的要构建的电子书根目录，如果省略目录则默认为当前目录。完整的命令配置如下：
+MnBook的构建命令的常用形式为`mnbook build [dir]`，其中`[dir]`是可选的要构建的电子书根目录，如果省略目录则默认为当前目录。完整的命令配置如下：
 
 ```json
         {
-            "label": "mdbook-build",
+            "label": "mnbook-build",
             "type": "shell",
-            "command": "mdbook",
+            "command": "mnbook",
             "args": ["build", "${workspaceFolder}/../.."]
         },
 ```
 
-Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命令，`args`指定参数列表。参数中的`${workspaceFolder}`是VS Code的内置变量，表示当前工作区的根目录。
+Task的名字为`mnbook-build`，依然是一个shell命令：`command`指定命令，`args`指定参数列表。参数中的`${workspaceFolder}`是VS Code的内置变量，表示当前工作区的根目录。
 
-#### 2.3.2.2 `mdbook-preview` Task
+#### 2.3.2.2 `mnbook-preview` Task
 
 预览是通过本地命令打开默认的浏览器，打开构建后的页面完成。命令配置如下：
 
 ```json
         {
-            "dependsOn": ["mdbook-build"],
-            "label": "mdbook-preview",
+            "dependsOn": ["mnbook-build"],
+            "label": "mnbook-preview",
             "type": "shell",
             "osx": {
                 "command": "open",
@@ -103,15 +103,15 @@ Task的名字为`mdbook-build`，依然是一个shell命令：`command`指定命
         }
 ```
 
-其中`dependsOn`该任务依赖`mdbook-build`任务完成构建。然后通过`osx`指定macOS系统下的打开浏览器的命令，另外的`linux`和`windows`系统的打开浏览器的方式可以参考代码。
+其中`dependsOn`该任务依赖`mnbook-build`任务完成构建。然后通过`osx`指定macOS系统下的打开浏览器的命令，另外的`linux`和`windows`系统的打开浏览器的方式可以参考代码。
 
-#### 2.3.2.3 `mdbook-clean` Task
+#### 2.3.2.3 `mnbook-clean` Task
 
-MDBook清除命令是删除构建生成的`book`命令，任务的配置参数如下：
+MnBook清除命令是删除构建生成的`book`命令，任务的配置参数如下：
 
 ```json
         {
-            "label": "mdbook-clean",
+            "label": "mnbook-clean",
             "type": "shell",
             "command": "rm",
             "args": ["-rf", "${workspaceFolder}/../../book"]
@@ -162,18 +162,18 @@ MDBook清除命令是删除构建生成的`book`命令，任务的配置参数�
     },
     "tasks": [
         {
-            "label": "mdbook-build",
+            "label": "mnbook-build",
             "type": "shell",
-            "command": "mdbook",
+            "command": "mnbook",
             "args": ["build", "${BOOK_ROOT}"]
         },
         {
-            "dependsOn": ["mdbook-build"],
-            "label": "mdbook-preview",
+            "dependsOn": ["mnbook-build"],
+            "label": "mnbook-preview",
             // ...省略...
         },
         {
-            "label": "mdbook-clean",
+            "label": "mnbook-clean",
             "type": "shell",
             "command": "rm",
             "args": ["-rf", "${BOOK_ROOT}/book"]

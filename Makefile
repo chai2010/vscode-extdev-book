@@ -1,15 +1,17 @@
+# go install github.com/wa-lang/mnbook@latest
+
 default:
-	mdbook serve
+	mnbook serve
 
 build:
 	-rm book
-	mdbook build
+	mnbook build
 	-rm book/.gitignore
 	-rm -rf book/.git
 
 deploy:
 	-rm book
-	mdbook build
+	mnbook build
 	-rm book/.gitignore
 	-rm -rf book/.git
 	-rm -rf book/examples

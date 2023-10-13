@@ -13,12 +13,12 @@
   "contributes": {
     "taskDefinitions": [
       {
-        "type": "mdbook",
+        "type": "mnbook",
         "required": [ "task" ],
         "properties": {
           "task": {
             "type": "string",
-            "description": "The mdbook task",
+            "description": "The mnbook task",
             "examples": ["build", "preview", "clean"]
           }
         }

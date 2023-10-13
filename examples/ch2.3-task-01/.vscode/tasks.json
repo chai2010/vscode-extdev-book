@@ -4,14 +4,14 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "mdbook-build",
+            "label": "mnbook-build",
             "type": "shell",
-            "command": "mdbook",
+            "command": "mnbook",
             "args": ["build", "${workspaceFolder}/../.."]
         },
         {
-            "dependsOn": ["mdbook-build"],
-            "label": "mdbook-preview",
+            "dependsOn": ["mnbook-build"],
+            "label": "mnbook-preview",
             "type": "shell",
             "osx": {
                 "command": "open",
@@ -34,7 +34,7 @@
             },
         },
         {
-            "label": "mdbook-clean",
+            "label": "mnbook-clean",
             "type": "shell",
             "command": "rm",
             "args": ["-rf", "${workspaceFolder}/../../book"]

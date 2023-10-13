@@ -1,8 +1,8 @@
 const vscode = require('vscode');
-const pkg = require("./mdbookTaskProvider");
+const pkg = require("./mnbookTaskProvider");
 
 /** @type {vscode.Disposable | undefined} */
-let mdbookTaskProvider = null;
+let mnbookTaskProvider = null;
 
 /**@type {vscode.OutputChannel} */
 let _channel = null;
@@ -10,33 +10,33 @@ let _channel = null;
 /** @return {vscode.OutputChannel} */
 function getOutputChannel()  {
 	if (!_channel) {
-		_channel = vscode.window.createOutputChannel('Mdbook Task Provider');
+		_channel = vscode.window.createOutputChannel('Mnbook Task Provider');
 	}
 	return _channel;
 }
 
 function activate(context /** @param {vscode.ExtensionContext} */) {
-	console.log("hello mdbook task provider");
+	console.log("hello mnbook task provider");
 
 	const workspaceRoot =
 		vscode.workspace.workspaceFolders && vscode.workspace.workspaceFolders.length > 0
 		? vscode.workspace.workspaceFolders[0].uri.fsPath
 		: undefined;
 	if (!workspaceRoot) {
-		getOutputChannel().appendLine('Mdbook task provider requires a workspace root.');
+		getOutputChannel().appendLine('Mnbook task provider requires a workspace root.');
 		getOutputChannel().show(true);
 		return;
 	}
 
-	mdbookTaskProvider = vscode.tasks.registerTaskProvider(
-		pkg.MdbookTaskProvider.MdbookType,
-		new pkg.MdbookTaskProvider(workspaceRoot)
+	mnbookTaskProvider = vscode.tasks.registerTaskProvider(
+		pkg.MnbookTaskProvider.MnbookType,
+		new pkg.MnbookTaskProvider(workspaceRoot)
 	);
 }
 
 function deactivate() {
-	if (mdbookTaskProvider) {
-		mdbookTaskProvider.dispose();
+	if (mnbookTaskProvider) {
+		mnbookTaskProvider.dispose();
 	}
 }
 

@@ -3,14 +3,14 @@ const child_process = require('child_process');
 const fs = require('fs');
 
 /** @implements {vscode.TaskProvider} */
-class MdbookTaskProvider {
-	static MdbookType = 'mdbook';
+class MnbookTaskProvider {
+	static MnbookType = 'mnbook';
 
 	/** @type {string} */
 	workspaceRoot = undefined;
 
 	/** @type {Thenable<vscode.Task[]> | undefined} */
-	mdbookPromise = undefined;
+	mnbookPromise = undefined;
 
 	constructor(workspaceRoot /** @param {string} */) {
 		this.workspaceRoot = workspaceRoot;
@@ -20,10 +20,10 @@ class MdbookTaskProvider {
 	 * @returns {Thenable<vscode.Task[]> | undefined}
 	 */ 
 	provideTasks() {
-		if(!this.mdbookPromise) {
-			this.mdbookPromise = this.getTasks();
+		if(!this.mnbookPromise) {
+			this.mnbookPromise = this.getTasks();
 		}
-		return this.mdbookPromise;
+		return this.mnbookPromise;
 	}
 
 	/**
@@ -35,34 +35,34 @@ class MdbookTaskProvider {
 
 	async getTasks() {
 		const buildTask = new vscode.Task(
-			{type: 'mdbook', task: 'build'}, // kind
+			{type: 'mnbook', task: 'build'}, // kind
 			vscode.TaskScope.Workspace,      // scope
 			'build',                         // name
-			'mdbook',                        // source
-			new vscode.ShellExecution(`mdbook build`), // execution
-			`mdbook_build`
+			'mnbook',                        // source
+			new vscode.ShellExecution(`mnbook build`), // execution
+			`mnbook_build`
 		);
 
 		let previewExec;
 
 		// macos only
-		previewExec = new vscode.ShellExecution(`mdbook build && open ${this.workspaceRoot}/book/index.html`);
+		previewExec = new vscode.ShellExecution(`mnbook build && open ${this.workspaceRoot}/book/index.html`);
 
 		const previewTask = new vscode.Task(
-			{type: 'mdbook', task: 'preview'}, // kind
+			{type: 'mnbook', task: 'preview'}, // kind
 			vscode.TaskScope.Workspace,        // scope
 			'preview',                         // name
-			'mdbook',                          // source
+			'mnbook',                          // source
 			previewExec, // execution
-			`mdbook_preview`
+			`mnbook_preview`
 		);
 		const cleanTask = new vscode.Task(
-			{type: 'mdbook', task: 'clean'}, // kind
+			{type: 'mnbook', task: 'clean'}, // kind
 			vscode.TaskScope.Workspace,      // scope
 			'clean',                         // name
-			'mdbook',                        // source
-			new vscode.ShellExecution(`mdbook clean`), // execution
-			`mdbook_clean`
+			'mnbook',                        // source
+			new vscode.ShellExecution(`mnbook clean`), // execution
+			`mnbook_clean`
 		);
 		return [buildTask, previewTask, cleanTask];
 	}
@@ -97,5 +97,5 @@ function exec(command, options) {
 }
 
 module.exports = {
-	MdbookTaskProvider,
+	MnbookTaskProvider,
 }
