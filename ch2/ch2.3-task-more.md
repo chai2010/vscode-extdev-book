@@ -42,7 +42,7 @@ export interface CommandOptions {
 
 ## 2.3.2 MnBook工作流Task
 
-本书采用 [MnBook](https://github.com/wa-lang/mnbook) 构建，只是凹语言社区开发的精简版的 Markdown 图书构建工具。为了提高工作效率我们可以构建一个MnBook预览Task。具体需要以下流程：首先在仓库根目录命令行环境通过 `mnbook build` 命令构建出 `book` 子目录，然后用浏览器打开 `./book/index.html` 文件预览。因此我们先假定本地已经安装有 `mnbook` 命令。
+本书采用 [MnBook](https://github.com/wa-lang/mnbook) 构建，这是凹语言社区开发的精简版的 Markdown 图书构建工具。为了提高工作效率我们可以构建一个MnBook预览Task。具体需要以下流程：首先在仓库根目录命令行环境通过 `mnbook build` 命令构建出 `book` 子目录，然后用浏览器打开 `./book/index.html` 文件预览。因此我们先假定本地已经安装有 `mnbook` 命令。
 
 配置 task.json 文件整体结构如下：
 
