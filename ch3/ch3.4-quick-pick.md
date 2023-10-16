@@ -155,6 +155,8 @@ interface InputBox extends QuickInput {
 
     // An event signaling when the value has changed.
     readonly onDidChangeValue: Event<string>;
+    // An event signaling when the user indicated acceptance of the input value.
+    readonly onDidAccept: Event<void>;
 
     // 更多信息暂省略
 }
