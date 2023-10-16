@@ -185,8 +185,8 @@ function activate(context) {
         quickPick.onDidChangeSelection(selection => {
             if (selection[0]) {
                 vscode.window.showInformationMessage(`selection: ${selection[0].label}`);
+                quickPick.hide();
             }
-            quickPick.hide();
         });
 
         quickPick.onDidHide(() => quickPick.dispose());
@@ -214,7 +214,7 @@ function activate(context) {
         });
         inputBox.onDidAccept(() => {
             vscode.window.showInformationMessage(`input: ${inputBox.value}`);
-            inputBox.dispose();
+            inputBox.hide();
         });
 
         inputBox.onDidHide(() => inputBox.dispose());
