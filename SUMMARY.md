@@ -20,7 +20,7 @@
   - [工作台简介](ch3/ch3.1-intro.md)
   - [配置和存储](ch3/ch3.2-setting.md)
   - [通知和状态栏](ch3/ch3.3-notify-and-info.md)
-  - [快速输入框](ch3/ch3.4-quick-pick.md)
+  - [常用输入框](ch3/ch3.4-quick-pick.md)
   - [定制Panel](ch3/ch3.5-panel.md)
   - [定制菜单](ch3/ch3.6-menu.md)
   - [补充说明](ch3/ch3.7-ext.md)

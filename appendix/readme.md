@@ -8,6 +8,7 @@
 - [https://code.visualstudio.com/docs/editor/tasks-appendix](https://code.visualstudio.com/docs/editor/tasks-appendix)
 - [https://code.visualstudio.com/docs/editor/variables-reference](https://code.visualstudio.com/docs/editor/variables-reference)
 - [https://code.visualstudio.com/docs/getstarted/keybindings](https://code.visualstudio.com/docs/getstarted/keybindings)
+- [https://code.visualstudio.com/api/ux-guidelines/quick-picks](https://code.visualstudio.com/api/ux-guidelines/quick-picks)
 
 ## A.2 VS Code API 相关
 

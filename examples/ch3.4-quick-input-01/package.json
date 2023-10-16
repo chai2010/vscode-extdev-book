@@ -1,0 +1,21 @@
+{
+	"name": "extdev-ch3.4-quick-input",
+	"description": "quickInput example",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.82.0"
+	},
+	"activationEvents": [],
+	"main": "./extension.js",
+	"browser": "./extension.js",
+	"contributes": {
+		"commands": [
+			{ "command": "extdev.showInputBox", "title": "showInputBox example" },
+			{ "command": "extdev.showQuickPick", "title": "showQuickPick example" }
+		]
+	},
+	"scripts": {},
+	"devDependencies": {
+		"@types/vscode": "^1.82.0"
+	}
+}
