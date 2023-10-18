@@ -169,61 +169,60 @@ function createQuickPick<T extends QuickPickItem>(): QuickPick<T>;
 function createInputBox(): InputBox;
 ```
 
-下面是通过`createQuickPick`函数实现类似`showQuickPick`例子的效果：
+我们以`QuickPick`为例展示如何用底层API创建，首先是封装一个`myShowQuickPick`函数：
 
 ```js
-function activate(context) {
-    context.subscriptions.push(vscode.commands.registerCommand('extdev.createQuickPick', () => {
-        const quickPick = vscode.window.createQuickPick();
+/**
+ * @param {string[]} items
+ * @returns vscode.Thenable<string|undefined>
+ */
+function myShowQuickPick(items) {
+	const quickPick = vscode.window.createQuickPick();
+	quickPick.items = items.map(label => ({label}));
+	quickPick.show();
 
-        quickPick.items = [
-            {'label': 'KCL'},
-            {'label': '凹语言'},
-            {'label': 'CodeBlitz'}
-        ];
-
-        quickPick.onDidChangeSelection(selection => {
-            if (selection[0]) {
-                vscode.window.showInformationMessage(`selection: ${selection[0].label}`);
-                quickPick.hide();
-            }
-        });
-
-        quickPick.onDidHide(() => quickPick.dispose());
-        quickPick.show();
-    }));
+	return Promise.race([		
+		new Promise(c => quickPick.onDidChangeSelection((selection) => {
+			if (selection[0]) {
+				c(selection[0].label);
+			} else {
+				c(undefined);
+			}
+			quickPick.hide();
+		})),
+		new Promise(c => quickPick.onDidAccept(() => {
+			c(quickPick.value);
+			quickPick.hide();
+		})),
+		new Promise(c => quickPick.onDidHide(() => {
+			c(undefined);
+		}))
+	]);
 }
 ```
 
-对于`showInputBox`例子的输入和合法性校验，可以通过`createInputBox`和`onDidChangeValue`函数和回调配合实现：
+其中比较关键的地方是返回一个`Promise`对象，其中包含了`onDidChangeSelection`表示点列表项输入、`onDidAccept`表示点键盘输入和窗口隐藏任何一种输入形式的结果。
+
+下面是通过命令使用`myShowQuickPick`例子的效果：
 
 ```js
+/** @param {vscode.ExtensionContext} context */
 function activate(context) {
-    context.subscriptions.push(vscode.commands.registerCommand('extdev.createInputBox', () => {
-        const inputBox = vscode.window.createInputBox();
-
-        inputBox.value = "abc";
-        inputBox.placeholder = 'For example: abc. But not: 123';
-
-        inputBox.onDidChangeValue(text => {
-            if(text === '123') {
-                inputBox.validationMessage = "Not 123";
-            } else {
-                inputBox.validationMessage = "";
-            }
-        });
-        inputBox.onDidAccept(() => {
-            vscode.window.showInformationMessage(`input: ${inputBox.value}`);
-            inputBox.hide();
-        });
-
-        inputBox.onDidHide(() => inputBox.dispose());
-        inputBox.show();
-    }));
+	context.subscriptions.push(vscode.commands.registerCommand('extdev.createQuickPick', () => {
+		myShowQuickPick(['KCL', '凹语言', 'CodeBlitz']).then(result => {
+			vscode.window.showInformationMessage(`result: ${result}`);
+		});
+	}));
 }
 ```
+
+这样就可以跟着特定的需要封装功能，同时达到类似`vscode.window.showQuickPick()`易用性。
+
+<!--
+## 3.4.4 输入框细节定制
 
 此外输入框还可以在界面定制更多的按钮和图标，这里暂不详细展开。
+-->
 
 ## 3.4.4 小结
 

@@ -1,48 +1,39 @@
 const vscode = require('vscode');
-const child_process = require('child_process')
+
+/**
+ * @param {string[]} items
+ * @returns vscode.Thenable<string|undefined>
+ */
+function myShowQuickPick(items) {
+	const quickPick = vscode.window.createQuickPick();
+	quickPick.items = items.map(label => ({label}));
+	quickPick.show();
+
+	return Promise.race([		
+		new Promise(c => quickPick.onDidChangeSelection((selection) => {
+			if (selection[0]) {
+				c(selection[0].label);
+			} else {
+				c(undefined);
+			}
+			quickPick.hide();
+		})),
+		new Promise(c => quickPick.onDidAccept(() => {
+			c(quickPick.value);
+			quickPick.hide();
+		})),
+		new Promise(c => quickPick.onDidHide(() => {
+			c(undefined);
+		}))
+	]);
+}
 
 /** @param {vscode.ExtensionContext} context */
 function activate(context) {
 	context.subscriptions.push(vscode.commands.registerCommand('extdev.createQuickPick', () => {
-		const quickPick = vscode.window.createQuickPick();
-
-		quickPick.items = [
-			{'label': 'KCL'},
-			{'label': '凹语言'},
-			{'label': 'CodeBlitz'}
-		];
-
-		quickPick.onDidChangeSelection(selection => {
-			if (selection[0]) {
-				vscode.window.showInformationMessage(`selection: ${selection[0].label}`);
-				quickPick.hide();
-			}
+		myShowQuickPick(['KCL', '凹语言', 'CodeBlitz']).then(result => {
+			vscode.window.showInformationMessage(`result: ${result}`);
 		});
-
-		quickPick.onDidHide(() => quickPick.dispose());
-		quickPick.show();
-	}));
-
-	context.subscriptions.push(vscode.commands.registerCommand('extdev.createInputBox', () => {
-		const inputBox = vscode.window.createInputBox();
-
-		inputBox.value = "abc";
-		inputBox.placeholder = 'For example: abc. But not: 123';
-
-		inputBox.onDidChangeValue(text => {
-			if(text === '123') {
-				inputBox.validationMessage = "Not 123";
-			} else {
-				inputBox.validationMessage = "";
-			}
-		});
-		inputBox.onDidAccept(() => {
-			vscode.window.showInformationMessage(`input: ${inputBox.value}`);
-			inputBox.hide();
-		});
-
-		inputBox.onDidHide(() => inputBox.dispose());
-		inputBox.show();
 	}));
 }
 

@@ -10,8 +10,7 @@
 	"browser": "./extension.js",
 	"contributes": {
 		"commands": [
-			{ "command": "extdev.createQuickPick", "title": "createQuickPick example" },
-			{ "command": "extdev.createInputBox", "title": "createInputBox example" }
+			{ "command": "extdev.createQuickPick", "title": "createQuickPick example" }
 		]
 	},
 	"scripts": {},
