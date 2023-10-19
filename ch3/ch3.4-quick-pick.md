@@ -131,7 +131,8 @@ interface QuickPick<T extends QuickPickItem> extends QuickInput {
     // Current value of the filter text.
     value: string;
 
-    // Optional placeholder shown in the filter textbox when no filter has been entered.
+    // Optional placeholder shown in the filter textbox when no filter
+    // has been entered.
     placeholder: string | undefined;
 
     // Items to pick from. This can be read and updated by the extension.
@@ -177,27 +178,27 @@ function createInputBox(): InputBox;
  * @returns vscode.Thenable<string|undefined>
  */
 function myShowQuickPick(items) {
-	const quickPick = vscode.window.createQuickPick();
-	quickPick.items = items.map(label => ({label}));
-	quickPick.show();
+    const quickPick = vscode.window.createQuickPick();
+    quickPick.items = items.map(label => ({label}));
+    quickPick.show();
 
-	return Promise.race([		
-		new Promise(c => quickPick.onDidChangeSelection((selection) => {
-			if (selection[0]) {
-				c(selection[0].label);
-			} else {
-				c(undefined);
-			}
-			quickPick.hide();
-		})),
-		new Promise(c => quickPick.onDidAccept(() => {
-			c(quickPick.value);
-			quickPick.hide();
-		})),
-		new Promise(c => quickPick.onDidHide(() => {
-			c(undefined);
-		}))
-	]);
+    return Promise.race([        
+        new Promise(c => quickPick.onDidChangeSelection((selection) => {
+            if (selection[0]) {
+                c(selection[0].label);
+            } else {
+                c(undefined);
+            }
+            quickPick.hide();
+        })),
+        new Promise(c => quickPick.onDidAccept(() => {
+            c(quickPick.value);
+            quickPick.hide();
+        })),
+        new Promise(c => quickPick.onDidHide(() => {
+            c(undefined);
+        }))
+    ]);
 }
 ```
 
@@ -208,22 +209,86 @@ function myShowQuickPick(items) {
 ```js
 /** @param {vscode.ExtensionContext} context */
 function activate(context) {
-	context.subscriptions.push(vscode.commands.registerCommand('extdev.createQuickPick', () => {
-		myShowQuickPick(['KCL', '凹语言', 'CodeBlitz']).then(result => {
-			vscode.window.showInformationMessage(`result: ${result}`);
-		});
-	}));
+    context.subscriptions.push(
+        vscode.commands.registerCommand('extdev.createQuickPick', () => {
+            myShowQuickPick(
+                ['KCL', '凹语言', 'CodeBlitz']
+            ).then(result => {
+                vscode.window.showInformationMessage(`result: ${result}`);
+            });
+        })
+    );
 }
 ```
 
 这样就可以跟着特定的需要封装功能，同时达到类似`vscode.window.showQuickPick()`易用性。
 
-<!--
-## 3.4.4 输入框细节定制
+## 3.4.4 QuickPick 输入框定制
 
-此外输入框还可以在界面定制更多的按钮和图标，这里暂不详细展开。
--->
+QuickPick 输入框内置了很多功能，下面是一个效果图：
 
-## 3.4.4 小结
+![](../images/ch3.4-04.png)
+
+首先首先通过`scode.window.createQuickPick()`函数创建并显示：
+
+```js
+function activate(context) {
+    const quickPick = vscode.window.createQuickPick();
+    quickPick.show();
+
+    ...
+}
+```
+
+然后设置标题、总步骤数、输入提示和忙碌状态：
+
+```js
+    quickPick.title = "标题";
+    quickPick.step = 1; // 从 1 开始
+    quickPick.totalSteps = 2;
+
+    // 输入的值为空时显示
+    quickPick.placeholder = "输入提示";
+
+    // 会出现一个处理或加载的动画, 其他不影响
+    quickPick.busy = true;
+```
+
+定制左边是会退按钮，右边是自定义按钮：
+
+```js
+    /** @type {vscode.QuickInputButton} */
+    const btnRedAdd = {
+        "iconPath":vscode.Uri.file(context.asAbsolutePath('icon-add-red.svg')),
+        "tooltip": "红色图标"
+    };
+
+    /** @type {vscode.QuickInputButton} */
+    const btnBlueAdd = {
+        "iconPath": vscode.Uri.file(context.asAbsolutePath('icon-add-blue.svg')),
+        "tooltip": "蓝色图标"
+    };
+
+    quickPick.buttons = [
+        vscode.QuickInputButtons.Back,
+        btnRedAdd, btnBlueAdd
+    ];
+```
+
+然后是下拉列表项，包含分组分割线：
+
+```js
+    // 下拉列表, 依然可以手工输入
+    quickPick.items = [
+        {'label': 'KCL', 'detail':'云原生配置语言'},
+        {'label': '凹语言', 'detail':'面向 WASM 设计'},
+        {kind: vscode.QuickPickItemKind.Separator}, // 分隔符
+        {'label': 'CodeBlitz', 'detail':'纯前端 IDE 基础框架'}
+    ];
+```
+
+然后是设置必要的消息处理函数后，就可以运行了。
+
+## 3.4.5 小结
 
 本节讨论的`QuickInput`输入框是定制性比较强的输入UI组件，可以容易实现多步骤输入等深度定制的特性，用户可以根据自己需要同时借鉴社区场景的代码方式再自行探索。

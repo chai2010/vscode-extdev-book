@@ -10,7 +10,7 @@
 	"browser": "./extension.js",
 	"contributes": {
 		"commands": [
-			{ "command": "extdev.multiStepInput", "title": "multiStepInput example" }
+			{ "command": "extdev.moreQuickPick", "title": "moreQuickPick example" }
 		]
 	},
 	"scripts": {},
