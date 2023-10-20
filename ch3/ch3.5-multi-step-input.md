@@ -72,7 +72,37 @@ function activate(context) {
 
 但是这个多步骤输入功能非常不稳健：不能后退也没有中间退出机制——输入的交互非常生硬。
 
-## 3.5.2 后退和前进导航
+## 3.5.2 `async` 和 `await` 语法糖
+
+async/await 是ES2017标准引入的，使得我们可以像写同步代码的风格写异步代码。对于返回 `Promise` 的函数，加上 `async` 关键字就可以。比如下面是`async`版本的`showMultiStepQuickPick`：
+
+```js
+async function showMultiStepQuickPick(title, step, totalSteps, items) {
+    // 内部实现代码不变
+}
+```
+
+对于`async`函数就可以通过`await`关键字等待异步完成（和之前的`then`回调类似）：
+
+```js
+/** @param {vscode.ExtensionContext} context */
+function activate(context) {
+	context.subscriptions.push(
+		vscode.commands.registerCommand('extdev.multiStepInput', async () => {
+			const totalSteps = 3;
+			let result1 = await showMultiStepQuickPick('第一步', 1, totalSteps, ["aa1", "bb1", "cc1"]);
+			let result2 = await showMultiStepQuickPick('第二步', 2, totalSteps, ["aa2", "bb2", "cc2"]);
+			let result3 = await showMultiStepQuickPick('第三步', 3, totalSteps, ["aa3", "bb3", "cc3"]);
+			vscode.window.showInformationMessage(`${result1} -> ${result2} -> ${result3}`);
+		})
+	);
+}
+```
+
+要特别注意的是`async`函数有传染性，因此`vscode.commands.registerCommand()`函数注册的命令回调函数也要同步改造。
+
+
+## 3.5.3 后退和前进导航
 
 TODO
 
