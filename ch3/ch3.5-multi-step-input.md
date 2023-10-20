@@ -90,10 +90,18 @@ function activate(context) {
 	context.subscriptions.push(
 		vscode.commands.registerCommand('extdev.multiStepInput', async () => {
 			const totalSteps = 3;
-			let result1 = await showMultiStepQuickPick('第一步', 1, totalSteps, ["aa1", "bb1", "cc1"]);
-			let result2 = await showMultiStepQuickPick('第二步', 2, totalSteps, ["aa2", "bb2", "cc2"]);
-			let result3 = await showMultiStepQuickPick('第三步', 3, totalSteps, ["aa3", "bb3", "cc3"]);
-			vscode.window.showInformationMessage(`${result1} -> ${result2} -> ${result3}`);
+			let result1 = await showMultiStepQuickPick(
+                '第一步', 1, totalSteps, ["aa1", "bb1", "cc1"]
+            );
+			let result2 = await showMultiStepQuickPick(
+                '第二步', 2, totalSteps, ["aa2", "bb2", "cc2"]
+            );
+			let result3 = await showMultiStepQuickPick(
+                '第三步', 3, totalSteps, ["aa3", "bb3", "cc3"]
+            );
+			vscode.window.showInformationMessage(
+                `${result1} -> ${result2} -> ${result3}`
+            );
 		})
 	);
 }
