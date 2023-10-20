@@ -1,108 +1,94 @@
 const vscode = require('vscode');
 
-async function multiStepInput(context) {
-    class MyButton {
-        constructor(iconPath, tooltip) {
-            this.iconPath = iconPath;
-            this.tooltip = tooltip;
-        }
-    }
-    const createResourceGroupButton = new MyButton(vscode.Uri.file(context.asAbsolutePath('add.svg')), 'Create Resource Group');
+async function collectInputs() {
+    const state = {};
+    await MultiStepInput.run(input => pickResourceGroup(input, state));
+    return state;
+}
+
+async function pickResourceGroup(input, state) {
+    const title = 'Create Application Service';
     const resourceGroups = [
         'vscode-appservice-monitor', 'vscode-appservice-preview', 'vscode-appservice-prod'
-    ].map(label => ({ label }));
-    async function collectInputs() {
-        const state = {};
-        await MultiStepInput.run(input => pickResourceGroup(input, state));
-        return state;
-    }
+    ]
+
+    const pick = await input.showQuickPick({
+        title, step: 1, totalSteps: 3,
+        placeholder: 'Pick a resource group',
+        items: resourceGroups.map(label => ({ label })),
+        activeItem: typeof state.resourceGroup !== 'string' ? state.resourceGroup : undefined,
+        shouldResume: shouldResume
+    });
+    state.resourceGroup = pick;
+    return (input) => inputName(input, state);
+}
+
+async function inputName(input, state) {
     const title = 'Create Application Service';
-    async function pickResourceGroup(input, state) {
-        const pick = await input.showQuickPick({
-            title,
-            step: 1,
-            totalSteps: 3,
-            placeholder: 'Pick a resource group',
-            items: resourceGroups,
-            activeItem: typeof state.resourceGroup !== 'string' ? state.resourceGroup : undefined,
-            buttons: [createResourceGroupButton],
-            shouldResume: shouldResume
-        });
-        if (pick instanceof MyButton) {
-            return (input) => inputResourceGroupName(input, state);
-        }
-        state.resourceGroup = pick;
-        return (input) => inputName(input, state);
-    }
-    async function inputResourceGroupName(input, state) {
-        state.resourceGroup = await input.showInputBox({
-            title,
-            step: 2,
-            totalSteps: 4,
-            value: typeof state.resourceGroup === 'string' ? state.resourceGroup : '',
-            prompt: 'Choose a unique name for the resource group',
-            validate: validateNameIsUnique,
-            shouldResume: shouldResume
-        });
-        return (input) => inputName(input, state);
-    }
-    async function inputName(input, state) {
-        const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
-        // TODO: Remember current value when navigating back.
-        state.name = await input.showInputBox({
-            title,
-            step: 2 + additionalSteps,
-            totalSteps: 3 + additionalSteps,
-            value: state.name || '',
-            prompt: 'Choose a unique name for the Application Service',
-            validate: validateNameIsUnique,
-            shouldResume: shouldResume
-        });
-        return (input) => pickRuntime(input, state);
-    }
-    async function pickRuntime(input, state) {
-        const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
-        const runtimes = await getAvailableRuntimes(state.resourceGroup, undefined /* TODO: token */);
-        // TODO: Remember currently active item when navigating back.
-        state.runtime = await input.showQuickPick({
-            title,
-            step: 3 + additionalSteps,
-            totalSteps: 3 + additionalSteps,
-            placeholder: 'Pick a runtime',
-            items: runtimes,
-            activeItem: state.runtime,
-            shouldResume: shouldResume
-        });
-    }
-    function shouldResume() {
-        // Could show a notification with the option to resume.
-        return new Promise((resolve, reject) => {
-            // noop
-        });
-    }
-    async function validateNameIsUnique(name) {
-        // ...validate...
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        return name === 'vscode' ? 'Name not unique' : undefined;
-    }
-    async function getAvailableRuntimes(resourceGroup, token) {
-        // ...retrieve...
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        return ['Node 8.9', 'Node 6.11', 'Node 4.5']
-            .map(label => ({ label }));
-    }
+
+    const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
+    // TODO: Remember current value when navigating back.
+    state.name = await input.showInputBox({
+        title,
+        step: 2 + additionalSteps,
+        totalSteps: 3 + additionalSteps,
+        value: state.name || '',
+        prompt: 'Choose a unique name for the Application Service',
+        validate: validateNameIsUnique,
+        shouldResume: shouldResume
+    });
+    return (input) => pickRuntime(input, state);
+}
+async function validateNameIsUnique(name) {
+    // ...validate...
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return name === 'vscode' ? 'Name not unique' : undefined;
+}
+
+async function pickRuntime(input, state) {
+    const title = 'Create Application Service';
+
+    const additionalSteps = typeof state.resourceGroup === 'string' ? 1 : 0;
+    const runtimes = await getAvailableRuntimes(state.resourceGroup, undefined /* TODO: token */);
+    // TODO: Remember currently active item when navigating back.
+    state.runtime = await input.showQuickPick({
+        title,
+        step: 3 + additionalSteps,
+        totalSteps: 3 + additionalSteps,
+        placeholder: 'Pick a runtime',
+        items: runtimes,
+        activeItem: state.runtime,
+        shouldResume: shouldResume
+    });
+}
+
+function shouldResume() {
+    // Could show a notification with the option to resume.
+    return new Promise((resolve, reject) => {
+        // noop
+    });
+}
+
+async function getAvailableRuntimes(resourceGroup, token) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    return ['Node 8.9', 'Node 6.11', 'Node 4.5'].map(label => ({ label }));
+}
+
+/** @param {vscode.ExtensionContext} context */
+async function multiStepInput(context) {
     const state = await collectInputs();
     vscode.window.showInformationMessage(`Creating Application Service '${state.name}'`);
 }
-exports.multiStepInput = multiStepInput;
+
 // -------------------------------------------------------
 // Helper code that wraps the API for the multi-step case.
 // -------------------------------------------------------
-class InputFlowAction {
-}
+class InputFlowAction {}
+
 InputFlowAction.back = new InputFlowAction();
 InputFlowAction.cancel = new InputFlowAction();
 InputFlowAction.resume = new InputFlowAction();
+
 class MultiStepInput {
     constructor() {
         this.steps = [];
