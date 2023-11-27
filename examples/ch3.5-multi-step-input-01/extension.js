@@ -17,20 +17,16 @@ function showMultiStepQuickPick(title, step, totalSteps, items) {
 
 	return Promise.race([
 		new Promise(c => quickPick.onDidChangeSelection((selection) => {
-			if (selection[0]) {
-				c(selection[0].label);
-			} else {
-				c(undefined);
-			}
+			c(selection[0].label);
 			quickPick.hide();
 		})),
 		new Promise(c => quickPick.onDidAccept(() => {
 			c(quickPick.value);
 			quickPick.hide();
 		})),
-		new Promise(c => quickPick.onDidHide(() => {
-			c(undefined);
-		}))
+		new Promise((_, reject) => quickPick.onDidHide(() => {
+			reject(undefined);
+		})),
 	]);
 }
 

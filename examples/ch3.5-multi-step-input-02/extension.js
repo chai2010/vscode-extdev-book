@@ -17,19 +17,15 @@ async function showMultiStepQuickPick(title, step, totalSteps, items) {
 
 	return Promise.race([
 		new Promise(c => quickPick.onDidChangeSelection((selection) => {
-			if (selection[0]) {
-				c(selection[0].label);
-			} else {
-				c(undefined);
-			}
+			c(selection[0].label);
 			quickPick.hide();
 		})),
 		new Promise(c => quickPick.onDidAccept(() => {
 			c(quickPick.value);
 			quickPick.hide();
 		})),
-		new Promise(c => quickPick.onDidHide(() => {
-			c(undefined);
+		new Promise((_, reject) => quickPick.onDidHide(() => {
+			reject(undefined);
 		}))
 	]);
 }
@@ -37,12 +33,22 @@ async function showMultiStepQuickPick(title, step, totalSteps, items) {
 /** @param {vscode.ExtensionContext} context */
 function activate(context) {
 	context.subscriptions.push(
-		vscode.commands.registerCommand('extdev.multiStepInput', async () => {
-			const totalSteps = 3;
-			let result1 = await showMultiStepQuickPick('第一步', 1, totalSteps, ["aa1", "bb1", "cc1"]);
-			let result2 = await showMultiStepQuickPick('第二步', 2, totalSteps, ["aa2", "bb2", "cc2"]);
-			let result3 = await showMultiStepQuickPick('第三步', 3, totalSteps, ["aa3", "bb3", "cc3"]);
-			vscode.window.showInformationMessage(`${result1} -> ${result2} -> ${result3}`);
+		vscode.commands.registerCommand('extdev.multiStepInput', () => {
+			(async () => {
+				const totalSteps = 3;
+				let result1 = await showMultiStepQuickPick('第一步', 1, totalSteps, ["aa1", "bb1", "cc1"]);
+				let result2 = await showMultiStepQuickPick('第二步', 2, totalSteps, ["aa2", "bb2", "cc2"]);
+				let result3 = await showMultiStepQuickPick('第三步', 3, totalSteps, ["aa3", "bb3", "cc3"]);
+				return [result1, result2, result3];
+			})().then(result => {
+				vscode.window.showInformationMessage(
+					`${result[0]} -> ${result[1]} -> ${result[2]}`
+				);
+			}).catch(err => {
+				vscode.window.showInformationMessage(
+					`没有输入`
+				);
+			});
 		})
 	);
 }

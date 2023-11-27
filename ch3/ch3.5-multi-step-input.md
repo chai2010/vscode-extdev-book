@@ -24,19 +24,21 @@ function showMultiStepQuickPick(title, step, totalSteps, items) {
 
     return Promise.race([
         new Promise(c => quickPick.onDidChangeSelection((selection) => {
-            if (selection[0]) { c(selection[0].label); } else { c(undefined); }
+            c(selection[0].label);
             quickPick.hide();
         })),
         new Promise(c => quickPick.onDidAccept(() => {
             c(quickPick.value);
             quickPick.hide();
         })),
-        new Promise(c => quickPick.onDidHide(() => {
-            c(undefined);
+        new Promise((_, reject) => quickPick.onDidHide(() => {
+            reject(undefined);
         }))
     ]);
 }
 ```
+
+其中 `onDidChangeSelection` 表示列表选择输入，`onDidAccept` 表示输入框文本输入，以上输入正常输入后先标记 `Promise` 为正常完成状态，然后调用隐藏输入框。因为 `Promise` 只会被触发一次，当第一次出发为 `onDidHide` 信息时表示拒绝状态。
 
 然后通过`Promise`封装3个顺序的异步代码：
 
@@ -107,10 +109,35 @@ function activate(context) {
 }
 ```
 
+如果要区分中间输入退出的状态，则通过获取异常返回值即可：
+
+```js
+function activate(context) {
+	context.subscriptions.push(
+		vscode.commands.registerCommand('extdev.multiStepInput', async () => {
+			(async () => {
+				const totalSteps = 3;
+				let result1 = await showMultiStepQuickPick(/* 省略 */);
+				let result2 = await showMultiStepQuickPick(/* 省略 */);
+				let result3 = await showMultiStepQuickPick(/* 省略 */);
+				return [result1, result2, result3];
+			})().then(result => {
+				vscode.window.showInformationMessage(
+					`${result[0]} -> ${result[1]} -> ${result[2]}`
+				);
+			}).catch(err => {
+				vscode.window.showInformationMessage(
+					`没有输入`
+				);
+			});
+		})
+	);
+}
+```
+
 要特别注意的是`async`函数有传染性，因此`vscode.commands.registerCommand()`函数注册的命令回调函数也要同步改造。
 
 
-## 3.5.3 后退和前进导航
+## 3.5.3 小结
 
-TODO
-
+在多步骤输入时，还可以设置后退和前进回复的功能。但是这种功能结合JavaScript的异步会导致代码变得复杂很多。具体细节可以参考官方的 [multiStepInput](https://github.com/Microsoft/vscode-extension-samples/blob/main/quickinput-sample/src/multiStepInput.ts) 例子，这里不再展开。
