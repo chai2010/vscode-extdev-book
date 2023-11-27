@@ -9,6 +9,9 @@
 - [https://code.visualstudio.com/docs/editor/variables-reference](https://code.visualstudio.com/docs/editor/variables-reference)
 - [https://code.visualstudio.com/docs/getstarted/keybindings](https://code.visualstudio.com/docs/getstarted/keybindings)
 - [https://code.visualstudio.com/api/ux-guidelines/quick-picks](https://code.visualstudio.com/api/ux-guidelines/quick-picks)
+- [https://code.visualstudio.com/api/references/contribution-points#contributes.menus](https://code.visualstudio.com/api/references/contribution-points#contributes.menus)
+- [https://code.visualstudio.com/api/references/when-clause-contexts](https://code.visualstudio.com/api/references/when-clause-contexts)
+- [https://code.visualstudio.com/api/references/contribution-points#contributes.commands](https://code.visualstudio.com/api/references/contribution-points#contributes.commands)
 
 ## B.2 VS Code API 相关
 

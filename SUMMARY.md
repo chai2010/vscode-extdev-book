@@ -29,6 +29,7 @@
 * [语言服务](ch6/readme.md)
 * [调试服务](ch7/readme.md)
 * [Web版插件](ch8/readme.md)
+* [国际化支持](ch9/readme.md)
 * [附录](appendix/readme.md)
   - [类型注释](appendix/jsdoc.md)
   - [参考链接](appendix/ref.md)
