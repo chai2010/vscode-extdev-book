@@ -43,9 +43,6 @@ function activate(context) {
 
 ![](../images/ch3.6-01.png)
 
-![](../images/ch3.6-02.png)
-
-![](../images/ch3.6-03.png)
 
 ## 3.6.2 菜单入口位置和条件
 
