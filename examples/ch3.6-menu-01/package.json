@@ -1,0 +1,31 @@
+{
+	"name": "extdev-ch3.5-multi-step-input",
+	"description": "multi step example",
+	"version": "0.0.1",
+	"engines": {
+		"vscode": "^1.82.0"
+	},
+	"activationEvents": [],
+	"main": "./extension.js",
+	"browser": "./extension.js",
+	"contributes": {
+		"commands": [
+			{ "command": "extdev.showMenu", "title": "showMenu example" }
+		],
+		"menus": {
+			"editor/title": [
+				{"command": "extdev.showMenu"}
+			],
+			"editor/context":[
+				{"command": "extdev.showMenu"}
+			],
+			"view/title": [
+				{"command": "extdev.showMenu"}
+			]
+		}
+	},
+	"scripts": {},
+	"devDependencies": {
+		"@types/vscode": "^1.82.0"
+	}
+}
