@@ -1,6 +1,7 @@
 # go install github.com/wa-lang/mnbook@latest
 
 default:
+	-@make clean
 	mnbook serve
 
 build:
