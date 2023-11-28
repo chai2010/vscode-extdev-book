@@ -10,7 +10,7 @@ build:
 	-rm -rf book/.git
 
 deploy:
-	-rm book
+	-@make clean
 	mnbook build
 	-rm book/.gitignore
 	-rm -rf book/.git
