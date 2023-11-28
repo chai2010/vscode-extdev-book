@@ -105,7 +105,7 @@ VS Code针对很多场景可定义菜单，以下是部分参考列表：
 
 菜单的图标可以在命令中定义，下面的配置为命令 `extdev.showMenu` 添加的名字、分类和图标信息。
 
-```
+```json
 {
 	"contributes": {
 		"commands": [
