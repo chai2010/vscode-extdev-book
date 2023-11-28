@@ -1,0 +1,395 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using https://github.com/wa-lang/mnbook -->
+        <meta charset="UTF-8">
+        <title>定制菜单 - VS Code 插件开发</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mnbook-theme');
+                var sidebar = localStorage.getItem('mnbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mnbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mnbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mnbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mnbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter">
+  <li class="chapter-item expanded ">
+    <a href="../index.html" >VS Code 插件开发</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../preface.html" >前言</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch1/readme.html" ><strong aria-hidden="true">1.</strong> 第一个扩展</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.1-hello-ext.html" ><strong aria-hidden="true">1.1.</strong> 你好, 插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.2-hello-ext.html" ><strong aria-hidden="true">1.2.</strong> 理解插件代码</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.3-hello-ext-pack.html" ><strong aria-hidden="true">1.3.</strong> 打包插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.4-hello-ext-pub.html" ><strong aria-hidden="true">1.4.</strong> 发布插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.5-hello-ext-web.html" ><strong aria-hidden="true">1.5.</strong> Web版插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.6-ext.html" ><strong aria-hidden="true">1.6.</strong> 补充说明</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch2/readme.html" ><strong aria-hidden="true">2.</strong> 工作区和任务</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.1-workspace.html" ><strong aria-hidden="true">2.1.</strong> 认识工作区</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.2-task.html" ><strong aria-hidden="true">2.2.</strong> 工作区Task</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.3-task-more.html" ><strong aria-hidden="true">2.3.</strong> Task进阶</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.4-task-ext.html" ><strong aria-hidden="true">2.4.</strong> Task插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.5-ext.html" ><strong aria-hidden="true">2.5.</strong> 补充说明</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch3/readme.html" ><strong aria-hidden="true">3.</strong> 定制工作台界面</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.1-intro.html" ><strong aria-hidden="true">3.1.</strong> 工作台简介</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.2-setting.html" ><strong aria-hidden="true">3.2.</strong> 配置和存储</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.3-notify-and-info.html" ><strong aria-hidden="true">3.3.</strong> 通知和状态栏</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.4-quick-pick.html" ><strong aria-hidden="true">3.4.</strong> 常用输入框</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.5-multi-step-input.html" ><strong aria-hidden="true">3.5.</strong> 多步骤输入框</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.6-menu.html" class="active"><strong aria-hidden="true">3.6.</strong> 定制菜单</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.7-ext.html" ><strong aria-hidden="true">3.7.</strong> 补充说明</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch4/readme.html" ><strong aria-hidden="true">4.</strong> 语法高亮</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.1-intro.html" ><strong aria-hidden="true">4.1.</strong> 语法高亮入门</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.2-new.html" ><strong aria-hidden="true">4.2.</strong> 定义高亮规则</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.3-embed.html" ><strong aria-hidden="true">4.3.</strong> 局部代码高亮</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.4-ext.html" ><strong aria-hidden="true">4.4.</strong> 定义高亮规则</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch5/readme.html" ><strong aria-hidden="true">5.</strong> 辅助视图</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch6/readme.html" ><strong aria-hidden="true">6.</strong> 语言服务</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch7/readme.html" ><strong aria-hidden="true">7.</strong> 调试服务</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch8/readme.html" ><strong aria-hidden="true">8.</strong> Web版插件</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch9/readme.html" ><strong aria-hidden="true">9.</strong> 国际化支持</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../appendix/readme.html" ><strong aria-hidden="true">10.</strong> 附录</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../appendix/jsdoc.html" ><strong aria-hidden="true">10.1.</strong> 类型注释</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../appendix/ref.html" ><strong aria-hidden="true">10.2.</strong> 参考链接</a>
+    </li>
+  </ol>
+</ol>
+
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title"><a href="../index.html">VS Code 插件开发</a></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/chai2010/vscode-extdev-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/chai2010/vscode-extdev-book/edit/master/ch3/ch3.6-menu.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1>3.6 定制菜单</h1>
+<p>VS Code的基本功能通过命令来抽血，命令可以绑定到快捷键和菜单。相比快捷键菜单是比较容易记住的入口，特别是针对不同的上下文环境可以设置不同的菜单。本届展示菜单的基本用法。</p>
+<h2>3.6.1 将命令绑定为菜单</h2>
+<p>要使用菜单先得定义命令，然后才能将命令的ID绑定到菜单。比如有 <code>extdev.showMenu</code> 命令：</p>
+<pre><code class="language-js">function activate(context) {
+	context.subscriptions.push(
+		vscode.commands.registerCommand('extdev.showMenu', () =&gt; {
+			vscode.window.showInformationMessage('extdev.showMenu')
+		})
+	);
+}
+</code></pre>
+<p>然后在 <code>package.json</code> 文件de <code>&quot;contributes.menus&quot;</code> 定义菜单的信息：</p>
+<pre><code class="language-json">{
+	&quot;contributes&quot;: {
+		&quot;commands&quot;: [
+			{ &quot;command&quot;: &quot;extdev.showMenu&quot;, &quot;title&quot;: &quot;showMenu example&quot; }
+		],
+		&quot;menus&quot;: {
+			&quot;editor/title&quot;: [
+				{&quot;command&quot;: &quot;extdev.showMenu&quot;}
+			],
+			&quot;editor/context&quot;:[
+				{&quot;command&quot;: &quot;extdev.showMenu&quot;}
+			],
+			&quot;view/title&quot;: [
+				{&quot;command&quot;: &quot;extdev.showMenu&quot;}
+			]
+		}
+	},
+}
+</code></pre>
+<p>这里在几个地方定义了菜单：编辑窗口的标题部分、编辑窗口的上下文菜单、视图的标题。效果如下：</p>
+<p><img src="../images/ch3.6-01.png" alt=""></p>
+<h2>3.6.2 菜单入口位置和条件</h2>
+<p>VS Code针对很多场景可定义菜单，以下是部分参考列表：</p>
+<ul>
+<li><code>commandPalette</code>：全局命令面板</li>
+<li><code>editor/title</code>：编辑器标题菜单栏</li>
+<li><code>editor/context</code>：编辑器上下文菜单</li>
+<li><code>explorer/context</code>：资源管理器视图上下文菜单</li>
+<li><code>view/title</code>：查看标题菜单</li>
+<li><code>view/item/context</code>：查看项目上下文菜单</li>
+<li><code>webview/context</code>：任何网页视图上下文菜单</li>
+<li>其他省略场景以及对应的子菜单</li>
+</ul>
+<p>其中比较常见的是 <code>explorer/context</code> 和 <code>editor/context</code> 相关的菜单。以上定义的是菜单入口位置的Key，比如在命令面板添加命令配置如下：</p>
+<pre><code class="language-json">{
+	&quot;contributes&quot;: {
+		&quot;menus&quot;: {
+			&quot;commandPalette&quot;: [
+				{&quot;command&quot;: &quot;extdev.showMenu&quot;}
+			],
+		}
+	}
+}
+</code></pre>
+<p>在<code>&quot;commandPalette&quot;</code>入口位置可以定义一组命令。每个命令项中除了<code>command</code>属性指定具体命令外，还有其他可选属性：</p>
+<ul>
+<li><code>submenu</code>：在子菜单添加，需要配合子菜单定义</li>
+<li><code>when</code>：根据不同的条件控制菜单是否可见</li>
+<li><code>alt</code>：按住<code>alt</code>时对应的备用命令</li>
+<li><code>group</code>：定义菜单分组</li>
+</ul>
+<p>比如下面的配置是为 Markdown 格式文件配置预览能力：</p>
+<pre><code class="language-json">{
+	&quot;contributes&quot;: {
+		&quot;menus&quot;: {
+			&quot;editor/title&quot;: [
+				{
+					&quot;when&quot;: &quot;resourceLangId == markdown&quot;,
+					&quot;command&quot;: &quot;markdown.showPreview&quot;,
+					&quot;alt&quot;: &quot;markdown.showPreviewToSide&quot;,
+					&quot;group&quot;: &quot;navigation&quot;
+				}
+			]
+		}
+	}
+}
+</code></pre>
+<p>通过 <code>when</code> 属性还可以选择不同的 view 类型，比如 <code>view == terminal &amp;&amp; isMac</code> 表示在 macOS 系统下的命令行识图添加菜单。</p>
+<p><code>when</code> 完整的内置变量可以参考 <a href="https://code.visualstudio.com/api/references/when-clause-contexts">when clause contexts</a>。</p>
+<h2>3.6.3 设置菜单图标</h2>
+<p>菜单的图标可以在命令中定义，下面的配置为命令 <code>extdev.showMenu</code> 添加的名字、分类和图标信息。</p>
+<pre><code class="language-json">{
+	&quot;contributes&quot;: {
+		&quot;commands&quot;: [
+			{
+				&quot;command&quot;: &quot;extdev.showMenu&quot;,
+				&quot;title&quot;: &quot;Show Menu&quot;,
+				&quot;category&quot;: &quot;Extdev&quot;,
+				&quot;icon&quot;: {
+					&quot;light&quot;: &quot;path/to/light/icon.svg&quot;,
+					&quot;dark&quot;: &quot;path/to/dark/icon.svg&quot;
+				}
+			}
+		]
+	}
+}
+</code></pre>
+<p>其中图标部分可以针对亮色和暗色定义不同的图标。</p>
+<h2>3.6.4 小结</h2>
+<p>本节展示的菜单的基本用法，VS Code针对菜单出现的位置、条件等都作了精心的设计，这些都给菜单带来了极大的灵活性。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../ch3/ch3.5-multi-step-input.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                            <!-- ../ch3/ch3.7-ext.html -->
+                            <a rel="next" href="../ch3/ch3.7-ext.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../ch3/ch3.5-multi-step-input.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                
+                    <a rel="next" href="../ch3/ch3.7-ext.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

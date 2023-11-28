@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html lang="zh" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using https://github.com/wa-lang/mnbook -->
+        <meta charset="UTF-8">
+        <title>类型注释 - VS Code 插件开发</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mnbook-theme');
+                var sidebar = localStorage.getItem('mnbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mnbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mnbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mnbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mnbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter">
+  <li class="chapter-item expanded ">
+    <a href="../index.html" >VS Code 插件开发</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../preface.html" >前言</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch1/readme.html" ><strong aria-hidden="true">1.</strong> 第一个扩展</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.1-hello-ext.html" ><strong aria-hidden="true">1.1.</strong> 你好, 插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.2-hello-ext.html" ><strong aria-hidden="true">1.2.</strong> 理解插件代码</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.3-hello-ext-pack.html" ><strong aria-hidden="true">1.3.</strong> 打包插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.4-hello-ext-pub.html" ><strong aria-hidden="true">1.4.</strong> 发布插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.5-hello-ext-web.html" ><strong aria-hidden="true">1.5.</strong> Web版插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch1/ch1.6-ext.html" ><strong aria-hidden="true">1.6.</strong> 补充说明</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch2/readme.html" ><strong aria-hidden="true">2.</strong> 工作区和任务</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.1-workspace.html" ><strong aria-hidden="true">2.1.</strong> 认识工作区</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.2-task.html" ><strong aria-hidden="true">2.2.</strong> 工作区Task</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.3-task-more.html" ><strong aria-hidden="true">2.3.</strong> Task进阶</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.4-task-ext.html" ><strong aria-hidden="true">2.4.</strong> Task插件</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch2/ch2.5-ext.html" ><strong aria-hidden="true">2.5.</strong> 补充说明</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch3/readme.html" ><strong aria-hidden="true">3.</strong> 定制工作台界面</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.1-intro.html" ><strong aria-hidden="true">3.1.</strong> 工作台简介</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.2-setting.html" ><strong aria-hidden="true">3.2.</strong> 配置和存储</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.3-notify-and-info.html" ><strong aria-hidden="true">3.3.</strong> 通知和状态栏</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.4-quick-pick.html" ><strong aria-hidden="true">3.4.</strong> 常用输入框</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.5-multi-step-input.html" ><strong aria-hidden="true">3.5.</strong> 多步骤输入框</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.6-menu.html" ><strong aria-hidden="true">3.6.</strong> 定制菜单</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch3/ch3.7-ext.html" ><strong aria-hidden="true">3.7.</strong> 补充说明</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch4/readme.html" ><strong aria-hidden="true">4.</strong> 语法高亮</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.1-intro.html" ><strong aria-hidden="true">4.1.</strong> 语法高亮入门</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.2-new.html" ><strong aria-hidden="true">4.2.</strong> 定义高亮规则</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.3-embed.html" ><strong aria-hidden="true">4.3.</strong> 局部代码高亮</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../ch4/ch4.4-ext.html" ><strong aria-hidden="true">4.4.</strong> 定义高亮规则</a>
+    </li>
+  </ol>
+  <li class="chapter-item expanded ">
+    <a href="../ch5/readme.html" ><strong aria-hidden="true">5.</strong> 辅助视图</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch6/readme.html" ><strong aria-hidden="true">6.</strong> 语言服务</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch7/readme.html" ><strong aria-hidden="true">7.</strong> 调试服务</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch8/readme.html" ><strong aria-hidden="true">8.</strong> Web版插件</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../ch9/readme.html" ><strong aria-hidden="true">9.</strong> 国际化支持</a>
+  </li>
+  <li class="chapter-item expanded ">
+    <a href="../appendix/readme.html" ><strong aria-hidden="true">10.</strong> 附录</a>
+  </li>
+  <ol class="section">
+    <li class="chapter-item expanded ">
+      <a href="../appendix/jsdoc.html" class="active"><strong aria-hidden="true">10.1.</strong> 类型注释</a>
+    </li>
+    <li class="chapter-item expanded ">
+      <a href="../appendix/ref.html" ><strong aria-hidden="true">10.2.</strong> 参考链接</a>
+    </li>
+  </ol>
+</ol>
+
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                    </div>
+
+                    <h1 class="menu-title"><a href="../index.html">VS Code 插件开发</a></h1>
+
+                    <div class="right-buttons">
+                        <a href="https://github.com/chai2010/vscode-extdev-book" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        <a href="https://github.com/chai2010/vscode-extdev-book/edit/master/appendix/jsdoc.md" title="Suggest an edit" aria-label="Suggest an edit">
+                            <i id="git-edit-button" class="fa fa-edit"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1>附录A：类型注释</h1>
+<p>本书主要采用JavaScript编写插件，同时通过JSDoc的方式标注变量和函数的类型信息。JSDoc语法也是TypeScript支持的，特别适合描述API的类型信息，同时保持实现的灵活性。这些简要介绍类型注释的基本用法。</p>
+<h2>A.1 基本用法</h2>
+<p>变量在声明时可以通过注释语法明确指定一个类型：</p>
+<pre><code class="language-js">/**@type {number} */
+let x;
+</code></pre>
+<p>也可以对一个值做强制转型：</p>
+<pre><code class="language-js">let x = /**@type {any}*/(0);
+</code></pre>
+<p>给函数增加类型信息：</p>
+<pre><code class="language-js">/**
+ * @param  {number} a
+ * @param  {...number} more
+ * @return {number}
+ */
+function sum(a, ...more) {
+	for(let i = 0; i &lt; more.length; i++) {
+		a += more[i];
+	}
+	return a;
+}
+</code></pre>
+<p>参数<code>a</code>是数值类型，<code>more</code>是可变数值类型参数，返回值是数值类型。</p>
+<p>如果是函数类型的变量或常量类型，可以这样表示：</p>
+<pre><code class="language-js">/**@type {function(number, number):number} */
+let sum2;
+
+/**@type {(a:number, b:number) =&gt; number} */
+let sum3;
+</code></pre>
+<p>如果是遇到不好表示的类型可以暂时忽略，毕竟我们优先选择JavaScript的因素是方便先实现功能。</p>
+<h2>A.2 基础类型</h2>
+<p>基础类型是JavaScript已有的基础类型，主要有<code>boolean</code>、<code>number</code>、<code>string</code>等。基础类型直接通过内置的名字就可以引用：</p>
+<pre><code class="language-js">/**@type {boolean} */
+let b0;
+
+/**@type {number} */
+let i0;
+
+/**@type {string} */
+let s0;
+</code></pre>
+<p>上面的例子就是定义了三个对于三种基本类型的变量。通过组合基础类型可以构造更复杂的类型。JavaScript种除了基础类型之外，还有<code>object</code>和<code>any</code>表示的对象。在这里不用纠结这些类型在运行时的差异，只要是TypeScript内置名字的类型都可以看作是基础类型，比如<code>unknown</code>等在编译阶段也可以算是基础类型。此外还有仅针对函数返回值的<code>void</code>类型。</p>
+<h2>A.3 复合类型</h2>
+<p>复合类型是通过组合基础类型或者是其它的复合类型，组合有数组、元组、联合、对象等多种不同的方式。以下是复合类型的一些例子：</p>
+<pre><code class="language-js">/**@type {boolean[]} */
+let array0;
+
+/**@type {[number,string]} */
+let tulpe0;
+
+/**@type {number|string} */
+let union0;
+
+/**@type { {a:boolean, b:number, c:object} } */
+let object0;
+
+/**@type { (number|string)[] } */
+let array_union;
+</code></pre>
+<p>其中<code>array0</code>是在布尔基础类型之上通过数组的方式构建出布尔数组复合类型。而<code>tulpe0</code>是基于数值和字符串构造的元组类型。<code>union0</code>则是可以表示数值或字符串之一的联合类型。然后<code>object0</code>通过对象方式构造出一个有三个不同类型成员的对象类型。最后的<code>array_union</code>则是在联合类型的基础之上又结合数组组合方式构造的联合数组类型变量。</p>
+<h2>A.4 命名类型</h2>
+<p>不管是基础类型还是复合类型，只有底层的类型组合方式完全一致就是相同的类型。而命名类型只是为了方便表示，命名类型和原始的类型依然是同一种类型。</p>
+<p>通过<code>@typedef</code>可以给类型命名：</p>
+<pre><code class="language-js">/**@typedef { boolean } MyBool*/
+
+/**@type {boolean} */
+let b2;
+
+/**@type {MyBool} */
+let b3 = b2;
+</code></pre>
+<p>在这里<code>boolean</code>被重新命名为<code>MyBool</code>。不过两者依然是相同的类型，因此<code>b2</code>和<code>b3</code>可以不用强制转型直接进行相互赋值。</p>
+<p>通过<code>@typedef</code>还可以给复合类型命名：</p>
+<pre><code class="language-js">/**@typedef { {x:number, y:number, z:number} } Point*/
+
+/**@type {Point} */
+let pt1 = null;
+</code></pre>
+<p>这里例子定义了一个<code>Point</code>点对象类型，每个点对象必须有<code>x</code>、<code>y</code>、<code>z</code>三个成员表示三维坐标信息。</p>
+<h2>A.5 类型导入</h2>
+<p>类型导入是指从其它的JavaScript模块导入类型。为了方便演示，我们先构造一个<code>lib.js</code>文件：</p>
+<pre><code class="language-js">/**
+ * @typedef { {Name:string, Age:number} } Person
+ */
+
+/**@type {Person} */
+export let gopher = {
+	Name: &quot;golang&quot;,
+	Age: 10,
+};
+</code></pre>
+<p>其中定义了一个<code>Person</code>类型，定义并且导出了一个该类型的变量<code>gopher</code>。然后我们创建<code>main.js</code>文件，并在其中导入<code>lib.js</code>模块中的类型：</p>
+<pre><code class="language-js">/**@type { import(&quot;./lib.js&quot;).Person } */
+let clang;
+</code></pre>
+<p>注释中的<code>import(&quot;./lib.js&quot;).Person</code>引用的就是导入<code>lib.js</code>模块中的类型。除了可以直接引用导入模块的类型之外，我们也可以从导入模块的变量或常量推导类型：</p>
+<pre><code class="language-js">/**@type { typeof import(&quot;./lib.js&quot;).gopher } */
+let cpplang;
+</code></pre>
+<p>注释中的<code>typeof import(&quot;./lib.js&quot;).gopher</code>根据<code>lib.js</code>模块导出的<code>gopher</code>变量推导出<code>Person</code>类型信息。甚至我们可以将从导入模块引用或者推导出的类型再次命名。</p>
+<p>这时候<code>x</code>将明确指定为数值类型。但是<code>typeof x</code>在运行时输出的依然是<code>undefined</code>。因此TypeES6编程实践中的类型更多的是开发阶段的类型信息，所以的编译阶段的类型信息在运行时将不再存在。</p>
+<p>在编译阶段（或者叫开发阶段），对于指定了数值类型的变量将不再接受字符串赋值：</p>
+<pre><code class="language-js">/**@type {number} */
+let x;
+x = 'abc';
+</code></pre>
+<p>我们也可以用以下两种方式明确指定数组的类型：</p>
+<pre><code class="language-js">/**@type {number []}*/
+let list2 = [1, 2, 3];
+
+let list3 = /**@type {number[]}*/([1, 2, 3]);
+</code></pre>
+<p>其中第一个语句是在声明时通过TypeES6的注释语法将<code>list2</code>变量声明为<code>number []</code>类型。第二个语句则是通过将初始化的数组值<code>[1, 2, 3]</code>转型为<code>number[]</code>类型后赋值给<code>list3</code>变量，这样<code>list3</code>变量就可以根据初始化的值类型推导出自己的类型。</p>
+<p>需要的注意的是，在给初始值转型时千万要用小括号将值包括起来，否则会导致类型注释不能生效。比如下面的写法是错误的：</p>
+<pre><code class="language-js">// 错误: 类型注释没有生效, 缺少了小括号
+let list4_failed = /**@type {number[]}*/[1, 2, 3];
+</code></pre>
+<p>虽然最终<code>list4_failed</code>变量依然是<code>number[]</code>类型，但是这个类型却不是由<code>/**@type {number[]}*/</code>类型注释产生，而是因为<code>[1, 2, 3]</code>默认就是<code>number[]</code>类型的数组。</p>
+<p>比如下面的代码将无法即使发现错误：</p>
+<pre><code class="language-js">// 错误: 类型注释没有生效, 缺少了小括号
+let list5_failed = /**@type {number[]}*/[1, 2, '3'];
+</code></pre>
+<p>这时候初始值默认是<code>(number|string)[]</code>类型，而不是我们注释的<code>number[]</code>类型。下面通过添加缺少的小括号让类型注释生效：</p>
+<pre><code class="language-js">let list5_ok1 = /**@type {number[]}*/([1, 2, '3']);
+let list5_ok2 = /**@type {(number|string)[]}*/([1, 2, 'a']);
+</code></pre>
+<p>这样的话，<code>list5_ok1</code>变量就是明确的<code>number[]</code>类型，而<code>list5_ok2</code>则是<code>(number|string)[]</code>类型。现在虽然变量是我们期望的类型，但是<code>list5_ok1</code>变量初始值的第三个元素被错误地写成了字符串类型，而且命令行没有任何错误提升！</p>
+<p>我们采用第一种指定变量类型的写法，这样可以发现初始值不匹配的错误：</p>
+<pre><code class="language-js">/**@type {number []}*/
+let list5_ok3 = [1, 2, 'a'];
+</code></pre>
+<p>最后，我们依然可以定义<code>any</code>类型的数组：</p>
+<pre><code class="language-js">/**@type {any[]}*/
+let list6 = [true, 1, 'a', {}, null];
+</code></pre>
+<p>这样的话，我们就可以在<code>list6</code>数组变量中存放不同类型的元素。不过这样也就丢失TypeES6的类型检查优势，因此建议谨慎使用<code>any</code>类型的数组。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../appendix/readme.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+                        
+                            <!-- ../appendix/ref.html -->
+                            <a rel="next" href="../appendix/ref.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../appendix/readme.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+                
+                    <a rel="next" href="../appendix/ref.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

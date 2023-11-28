@@ -1,0 +1,15 @@
+[book]
+title = "VS Code 插件开发"
+authors = ["柴树杉"]
+description = "开发自己的 VS Code 插件"
+language = "zh"
+multilingual = false
+src = "."
+
+[build]
+build-dir = "book"
+
+[output.html]
+git-repository-url = "https://github.com/chai2010/vscode-extdev-book"
+edit-url-template = "https://github.com/chai2010/vscode-extdev-book/edit/master/{path}"
+git-repository-icon = "fa-github"
