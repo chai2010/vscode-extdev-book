@@ -1,14 +1,14 @@
 const vscode = require('vscode');
 
 /** @implements {vscode.TaskProvider} */
-class MnbookTaskProvider {
-	static MnbookType = 'mnbook';
+class waBookTaskProvider {
+	static waBookType = 'wabook';
 
 	/** @type {string} */
 	workspaceRoot = undefined;
 
 	/** @type {Thenable<vscode.Task[]> | undefined} */
-	mnbookPromise = undefined;
+	waBookPromise = undefined;
 
 	constructor(workspaceRoot /** @param {string} */) {
 		this.workspaceRoot = workspaceRoot;
@@ -18,10 +18,10 @@ class MnbookTaskProvider {
 	 * @returns {Thenable<vscode.Task[]> | undefined}
 	 */ 
 	provideTasks() {
-		if(!this.mnbookPromise) {
-			this.mnbookPromise = this.getTasks();
+		if(!this.waBookPromise) {
+			this.waBookPromise = this.getTasks();
 		}
-		return this.mnbookPromise;
+		return this.waBookPromise;
 	}
 
 	/**
@@ -33,41 +33,41 @@ class MnbookTaskProvider {
 
 	getTasks() {
 		const buildTask = new vscode.Task(
-			{type: 'mnbook', task: 'build'}, // kind
+			{type: 'wabook', task: 'build'}, // kind
 			vscode.TaskScope.Workspace,      // scope
 			'build',                         // name
-			'mnbook',                        // source
-			new vscode.ShellExecution(`mnbook build`), // execution
-			`mnbook_build`
+			'wabook',                        // source
+			new vscode.ShellExecution(`wabook build`), // execution
+			`waBook_build`
 		);
 
 		let previewExec;
 
 		// macos only
-		previewExec = new vscode.ShellExecution(`mnbook build && open ${this.workspaceRoot}/book/index.html`);
+		previewExec = new vscode.ShellExecution(`wabook build && open ${this.workspaceRoot}/book/index.html`);
 
 		// dependsOn build?
 
 		const previewTask = new vscode.Task(
-			{type: 'mnbook', task: 'preview'}, // kind
+			{type: 'wabook', task: 'preview'}, // kind
 			vscode.TaskScope.Workspace,        // scope
 			'preview',                         // name
-			'mnbook',                          // source
+			'wabook',                          // source
 			previewExec, // execution
-			`mnbook_preview`
+			`waBook_preview`
 		);
 		const cleanTask = new vscode.Task(
-			{type: 'mnbook', task: 'clean'}, // kind
+			{type: 'wabook', task: 'clean'}, // kind
 			vscode.TaskScope.Workspace,      // scope
 			'clean',                         // name
-			'mnbook',                        // source
-			new vscode.ShellExecution(`mnbook clean`), // execution
-			`mnbook_clean`
+			'wabook',                        // source
+			new vscode.ShellExecution(`wabook clean`), // execution
+			`waBook_clean`
 		);
 		return [buildTask, previewTask, cleanTask];
 	}
 }
 
 module.exports = {
-	MnbookTaskProvider,
+	waBookTaskProvider,
 }

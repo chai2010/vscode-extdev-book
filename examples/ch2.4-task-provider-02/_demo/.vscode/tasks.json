@@ -2,8 +2,8 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "mnbook: build",
-			"type": "mnbook",
+			"label": "wabook: build",
+			"type": "wabook",
 			"task": "build", // The name of the problem matcher
 	  }
 	]

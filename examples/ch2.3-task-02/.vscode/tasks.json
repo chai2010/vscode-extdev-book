@@ -9,14 +9,14 @@
     },
     "tasks": [
         {
-            "label": "mnbook-build",
+            "label": "wabook-build",
             "type": "shell",
-            "command": "mnbook",
+            "command": "wabook",
             "args": ["build", "${BOOK_ROOT}"]
         },
         {
-            "dependsOn": ["mnbook-build"],
-            "label": "mnbook-preview",
+            "dependsOn": ["wabook-build"],
+            "label": "wabook-preview",
             "type": "shell",
             "osx": {
                 "command": "open",
@@ -39,7 +39,7 @@
             },
         },
         {
-            "label": "mnbook-clean",
+            "label": "wabook-clean",
             "type": "shell",
             "command": "rm",
             "args": ["-rf", "${BOOK_ROOT}/book"]
